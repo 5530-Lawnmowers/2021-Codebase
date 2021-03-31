@@ -12,4 +12,26 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    public static final int CLIMB_L = 25; //SparkMAX
+    public static final int CLIMB_R = 8; //SparkMAX
+
+    //Drivetrain motors
+    public static final int DT_R1 = 9; //TalonFX
+    public static final int DT_R2 = 10; //TalonFX
+    public static final int DT_L1 = 11; //TalonFX
+    public static final int DT_L2 = 12; //TalonFX
+
+    //Intake Motor
+    public static final int INTAKE = 20 ; //Spark NEO 550
+    
+    //Spindex Motor
+    public static final int SPINDEX = 16; //Spark 775
+
+    //Shooter Motors
+    public static final int FLY_1 = 24; //SparkMAX
+    public static final int FLY_2 = 30; //SparkMAX
+    public static final int HOOD = 51; //Spark 
+    public static final int TURRET = 41; //Spark NEO 550
+
+}
