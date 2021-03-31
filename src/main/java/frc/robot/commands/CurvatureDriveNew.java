@@ -54,7 +54,6 @@ public class CurvatureDriveNew extends CommandBase {
 
     // Get preliminary current triggers
     double accelerator = deadband(RobotContainer.XBController1.getTriggerAxis(Hand.kRight), kDeadbandTrigger);
-    System.out.println(RobotContainer.XBController1.getTriggerAxis(Hand.kRight));
     double decelerator = deadband(RobotContainer.XBController1.getTriggerAxis(Hand.kLeft), kDeadbandTrigger);
 
     // Ramp up input values as needed

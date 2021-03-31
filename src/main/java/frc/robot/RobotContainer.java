@@ -26,6 +26,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static JoystickButton xb1a = new JoystickButton(XBController1, 1);
+  public static JoystickButton xb1b = new JoystickButton(XBController1, 2);
+  public static JoystickButton xb1y = new JoystickButton(XBController1, 4);
+  public static JoystickButton xb1x = new JoystickButton(XBController1, 3);
+
 
   private final Climb climb = new Climb();
   private final Pnuematic pnuematic = new Pnuematic();
@@ -51,6 +55,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     xb1a.toggleWhenPressed(new Extend(pnuematic));
+    xb1b.toggleWhenPressed(new IntakeIn(intake));
+    xb1y.toggleWhenPressed(new StartSpin(feed));
+    xb1x.toggleWhenPressed(new StopSpin(feed));
 
   }
 
