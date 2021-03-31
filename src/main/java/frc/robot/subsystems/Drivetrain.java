@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.helpers.ShuffleboardHelpers;
+//import frc.robot.helpers.ShuffleboardHelpers;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -108,8 +108,9 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        ShuffleboardHelpers.setWidgetValue("Drivetrain", "Left Encoder", drivetrainLeft1.getSelectedSensorPosition());
-        ShuffleboardHelpers.setWidgetValue("Drivetrain", "Right Encoder", drivetrainRight1.getSelectedSensorPosition());
+       // ShuffleboardHelpers.setWidgetValue("Drivetrain", "Left Encoder", drivetrainLeft1.getSelectedSensorPosition());
+        //
+      //  ShuffleboardHelpers.setWidgetValue("Drivetrain", "Right Encoder", drivetrainRight1.getSelectedSensorPosition());
     }
 
     /**
