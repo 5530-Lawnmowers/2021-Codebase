@@ -165,3 +165,6 @@ imgui.ini
 first-bsd-license.txt
 README.md
 .idea\
+*.lock
+
+*.bin
