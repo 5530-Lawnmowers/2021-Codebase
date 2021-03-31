@@ -12,6 +12,7 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 public class Feed extends SubsystemBase {
   private CANSparkMax spindex = new CANSparkMax(Constants.SPINDEX, CANSparkMaxLowLevel.MotorType.kBrushed);
+  private CANSparkMax gateWheel = new CANSparkMax(Constants.GATEWHEEL, CANSparkMaxLowLevel.MotorType.kBrushless);
 
   /** Creates a new Feed. */
   public Feed() {
@@ -25,6 +26,13 @@ public class Feed extends SubsystemBase {
   public void stopSpin() {
     spindex.set(0);
 
+  }
+
+  public void startGateWheel(){
+    gateWheel.set(-.4);
+  }
+  public void stopGateWheel(){
+    gateWheel.set(0);
   }
 
   @Override

@@ -7,14 +7,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class StartSpin extends CommandBase {
-  /** Creates a new StartSpin. */
-  private Feed feed;
-  private double spinSet = 1.0; 
-  public StartSpin(Feed feed) {
-    
-    addRequirements(feed);
-    this.feed = feed;
+public class runFly extends CommandBase {
+  private Shooter shooter;
+  /** Creates a new runFly. */
+  public runFly(Shooter shooter) {
+    addRequirements(shooter);
+    this.shooter = shooter;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,15 +24,13 @@ public class StartSpin extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setSpin(-1);
-    feed.startGateWheel();
+    shooter.run();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feed.stopSpin();
-    feed.stopGateWheel();
+    shooter.stop();
   }
 
   // Returns true when the command should end.
