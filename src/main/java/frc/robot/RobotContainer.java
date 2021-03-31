@@ -22,9 +22,15 @@ public class RobotContainer {
   public static final XboxController XBController2 = new XboxController(2);
   //Operator Controller
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  private final Climber climber = new Climber();
+  private final Drivetrain drivetrain = new Drivetrain();
+  private final Intake intake = new Intake();
+  private final Shooter shooter = new Shooter();
+  private final Delivery delivery = new Feed();
+  private final Turret turret = new Turret();
+  private final Hood hood = new Hood();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
