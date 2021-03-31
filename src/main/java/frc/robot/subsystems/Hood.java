@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Hood extends SubsystemBase {
   /** Creates a new Hood. */
-  private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
+  private final CANSparkMax hood = new CANSparkMax(41, CANSparkMaxLowLevel.MotorType.kBrushless);
   
   private double hoodSet;
 
@@ -30,6 +30,7 @@ public class Hood extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    System.out.println(hood.getEncoder().getPosition());
     // This method will be called once per scheduler run
   }
 }

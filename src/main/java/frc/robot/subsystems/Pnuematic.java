@@ -15,6 +15,7 @@ public class Pnuematic extends SubsystemBase {
 
   @Override
   public void periodic() {
+    comp.stop();
     // This method will be called once per scheduler run
   }
   public void extend(){

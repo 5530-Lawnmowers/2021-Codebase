@@ -18,6 +18,7 @@ public class Shooter extends SubsystemBase {
   public void run(){
     shoot1.set(1);
     shoot2.set(-1);
+
   }
   public void stop(){
     shoot1.set(0);
