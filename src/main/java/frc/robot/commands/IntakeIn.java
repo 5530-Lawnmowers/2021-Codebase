@@ -19,13 +19,14 @@ public class IntakeIn extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.setIntake(intakeSet);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntake(intakeSet);
-
+  
   }
 
   // Called once the command ends or is interrupted.
