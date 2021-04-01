@@ -6,27 +6,67 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.robot.helpers.LimelightHelper;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Hood extends SubsystemBase {
-  /** Creates a new Hood. */
-  private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
   
-  private double hoodSet;
-
+  private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
+  private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
+  private final DutyCycleEncoder angleAbs = new DutyCycleEncoder(Constants.HOOD);
+ 
+  /** Creates a new Hood. */
   public Hood() {
     hood.setIdleMode(IdleMode.kBrake); //set how the motor behaves Idle
     hood.setSmartCurrentLimit(30); //Prevents Explosion
-    this.hoodSet = 0; // Sets the speed to 0
+    hood.set(0); // Sets the speed to 0
   }
+  /**Sets hood speed */
   public void setHood(double speed) {
     hood.set(speed);
   }
+  /**
+   * Stops hood motor
+   */
   public void stopHood() {
     hood.set(0);
+  }
+  /**
+   * Aims the hood based on empirically derived ball drop equation offset. Compenstates for ball flight path.
+   * @return Hood speed determined based on PID loop from current limelight Y-Axis Offset to required Y-Axis Offset
+   */
+  public double hoodPIDCalculate() {
+    double limelightArea = LimelightHelper.getTurretRawA(); // gets the raw curret value of limelight target Area.
+    double limelightYOffset = LimelightHelper.getTurretRawY(); // gets the raw current value of limelight Y-axis offset to target. Measurement parameter for PID loop.
+    double shootingYOffset = getShootingYOffset(limelightArea); //sets the target Y-axis offset for the given target area. Target point for the PID loop
+    return hoodPID.calculate(limelightYOffset, shootingYOffset); //returns the output voltage percentage for motor
+  }
+  
+  /**
+   * Get the require Y-axis(Vertical) offset for accurate shooting
+   * Equation compensates for the drop of the ball due to resistance.
+   * @param limelightA The Area of the limelight target
+   * @return 
+   */
+  public double getShootingYOffset(double limelightA) {
+    final double FIT_A = -9.039;
+    final double FIT_B = 0.4935;
+    double offset;
+    if (limelightA <=0) {
+      return 0;
+    }
+    offset = -FIT_A * Math.log(FIT_B * limelightA);
+    return offset + 0.3; //The + 0.3 is a constant added to the offset equation
+  }
+
+
+
+  public double getAngleAbs() {
+    return angleAbs.get();
   }
   @Override
   public void periodic() {

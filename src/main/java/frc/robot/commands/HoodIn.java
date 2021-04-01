@@ -10,7 +10,7 @@ import frc.robot.subsystems.*;
 public class HoodIn extends CommandBase {
   /** Creates a new StartSpin. */
   private Hood hood;
-  private double hoodSet = -.75; 
+  private double hoodSet = -.75; //Motor voltage percent output
   public HoodIn(Hood hood) {
     
     addRequirements(hood);
