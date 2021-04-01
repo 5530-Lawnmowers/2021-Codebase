@@ -10,7 +10,7 @@ import frc.robot.subsystems.*;
 public class HoodIn extends CommandBase {
   /** Creates a new StartSpin. */
   private Hood hood;
-  private double hoodSet = .75; 
+  private double hoodSet = -.75; 
   public HoodIn(Hood hood) {
     
     addRequirements(hood);
@@ -25,7 +25,7 @@ public class HoodIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hood.setHood(-1);
+    hood.setHood(hoodSet);
   }
 
   // Called once the command ends or is interrupted.

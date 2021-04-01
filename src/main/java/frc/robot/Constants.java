@@ -32,7 +32,7 @@ public final class Constants {
     //Shooter Motors
     public static final int FLY_1 = 24; //SparkMAX
     public static final int FLY_2 = 30; //SparkMAX
-    public static final int HOOD = 51; //Spark 
+    public static final int HOOD = 51; //Spark Brushed Motor
     public static final int TURRET = 41; //Spark NEO 550
 
 
