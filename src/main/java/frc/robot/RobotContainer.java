@@ -33,7 +33,7 @@ public class RobotContainer {
   public static JoystickButton xb1rb = new JoystickButton(XBController1, 6); 
   public static JoystickButton xbstart = new JoystickButton(XBController1, 8);
   private final Climb climb = new Climb();
-  private final Pnuematic pnuematic = new Pnuematic();
+  private final Pneumatic pneumatic = new Pneumatic();
 
   private final Drivetrain drivetrain = new Drivetrain();
   private final Intake intake = new Intake();
@@ -55,7 +55,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    xb1a.toggleWhenPressed(new Extend(pnuematic));
+    xb1a.toggleWhenPressed(new PneumaticExtend(pneumatic));
     xb1b.toggleWhenPressed(new IntakeIn(intake));
     xb1y.toggleWhenPressed(new StartSpin(feed));
     xb1x.toggleWhenPressed(new StopSpin(feed));

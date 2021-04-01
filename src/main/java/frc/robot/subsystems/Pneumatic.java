@@ -5,13 +5,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.*;
-public class Pnuematic extends SubsystemBase {
+public class Pneumatic extends SubsystemBase {
   /** Creates a new Pnuematic. */
   private final Compressor comp = new Compressor();
   private final DoubleSolenoid LeftS = new DoubleSolenoid(1,3);
   private final DoubleSolenoid RightS = new DoubleSolenoid(0,2);
 
-  public Pnuematic() {}
+  public Pneumatic() {}
 
   @Override
   public void periodic() {

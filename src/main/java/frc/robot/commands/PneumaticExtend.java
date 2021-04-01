@@ -6,19 +6,19 @@ package frc.robot.commands;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Extend extends CommandBase {
+public class PneumaticExtend extends CommandBase {
   /** Creates a new Extend. */
-  private Pnuematic pnuematic;
-  public Extend(Pnuematic pnuematic) {
-    addRequirements(pnuematic);
-    this.pnuematic = pnuematic;
+  private Pneumatic pneumatic;
+  public PneumaticExtend(Pneumatic pneumatic) {
+    addRequirements(pneumatic);
+    this.pneumatic = pneumatic;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pnuematic.extend();
+    pneumatic.extend();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -28,7 +28,7 @@ public class Extend extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pnuematic.retract();
+    pneumatic.retract();
   }
 
   // Returns true when the command should end.
