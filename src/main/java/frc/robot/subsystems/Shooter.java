@@ -9,20 +9,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
 
 public class Shooter extends SubsystemBase {
-  private CANSparkMax shoot1 = new CANSparkMax(Constants.FLY_1, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private CANSparkMax shoot2 = new CANSparkMax(Constants.FLY_2, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANSparkMax flywheel1 = new CANSparkMax(Constants.FLY_1, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANSparkMax flywheel2 = new CANSparkMax(Constants.FLY_2, CANSparkMaxLowLevel.MotorType.kBrushless);
   /** Creates a new Shooter. */
   public Shooter() {
 
   }
   public void run(){
-    shoot1.set(1);
-    shoot2.set(-1);
+    flywheel1.set(1);
+    flywheel2.set(-1);
 
   }
   public void stop(){
-    shoot1.set(0);
-    shoot2.set(0);
+    flywheel1.set(0);
+    flywheel2.set(0);
   }
 
   @Override

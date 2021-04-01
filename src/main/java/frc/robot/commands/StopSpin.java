@@ -25,7 +25,7 @@ public class StopSpin extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setSpin(1);
+    feed.setSpin(spinSet);
   }
 
   // Called once the command ends or is interrupted.

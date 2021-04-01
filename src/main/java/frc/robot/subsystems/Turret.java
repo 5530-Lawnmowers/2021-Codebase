@@ -5,11 +5,43 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.helpers.LimelightHelper;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  /** Creates a new Turret. */
-  public Turret() {}
+  private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private final PIDController turretPID = new PIDController(.01, .007, .007);
+  private final DutyCycleEncoder headingAbs = new DutyCycleEncoder(Constants.HOOD);
 
+  /** Creates a new Turret. */
+  public Turret() {
+    turret.setIdleMode(IdleMode.kBrake);
+    turret.setSmartCurrentLimit(40);
+    turret.set(0);
+  }
+  /**Set turret speed */
+  public void setTurret(double speed) {
+    turret.set(speed);
+  }
+  /**Stops Turret */
+  public void stopTurret() {
+    turret.set(0);
+  }
+  /** Changes the turret heading to get the limelightXOffset to 0.
+   * @return Turret speed from PID Loop 
+   */
+  public double turretPIDCalculate() {
+    double limelightXOffset = LimelightHelper.getTurretRawX();
+    return turretPID.calculate(limelightXOffset, 0);
+  }
+  public double getHeadingAbs() {
+    return headingAbs.get();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -5,17 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Hood;
+import frc.robot.helpers.LimelightHelper;
 
-public class StartSpin extends CommandBase {
-  /** Creates a new StartSpin. */
-  private Feed feed;
-  private double spinSet = -1.0; 
-  public StartSpin(Feed feed) {
-    
-    addRequirements(feed);
-    this.feed = feed;
+public class HoodAlign extends CommandBase {
+  private final Hood hood;
+  private final double verticalMargin = 0.2;
+  
+  /** Creates a new HoodAlign. */
+  public HoodAlign(Hood hood) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(hood);
+    this.hood = hood;
   }
 
   // Called when the command is initially scheduled.
@@ -25,16 +26,20 @@ public class StartSpin extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setSpin(spinSet);
-    feed.startGateWheel();
+    double offset = hood.getShootingYOffset(LimelightHelper.getTurretRawY());
+
+    if (Math.abs(LimelightHelper.getTurretRawY()) - offset >= verticalMargin) {
+      hood.setHood(-hood.hoodPIDCalculate());
+    } else {
+      hood.stopHood();
+    }
+    
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    feed.stopSpin();
-    feed.stopGateWheel();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
