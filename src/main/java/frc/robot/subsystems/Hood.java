@@ -19,6 +19,9 @@ public class Hood extends SubsystemBase {
   private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
   private final DutyCycleEncoder angleAbs = new DutyCycleEncoder(Constants.HOOD);
  
+  private int lowerLimit;
+  private int upperLimit;
+
   /** Creates a new Hood. */
   public Hood() {
     hood.setIdleMode(IdleMode.kBrake); //set how the motor behaves Idle
@@ -60,9 +63,9 @@ public class Hood extends SubsystemBase {
       return 0;
     }
     offset = -FIT_A * Math.log(FIT_B * limelightA);
-    return offset + 0.3; //The + 0.3 is a constant added to the offset equation
+    return offset + 0.3; //The + 0.3 is a just constant added to the offset equation
   }
-
+  
 
 
   public double getAngleAbs() {
