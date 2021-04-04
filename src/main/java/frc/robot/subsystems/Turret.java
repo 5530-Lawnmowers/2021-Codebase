@@ -14,19 +14,26 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
+  public final static double UpperMax = 700;
+ 
+  public final static double LowerMax = 0;
+  public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final PIDController turretPID = new PIDController(.01, .007, .007);
   private final DutyCycleEncoder headingAbs = new DutyCycleEncoder(Constants.HOOD);
+  public CANEncoder encoder;
+  
 
   /** Creates a new Turret. */
   public Turret() {
     turret.setIdleMode(IdleMode.kBrake);
     turret.setSmartCurrentLimit(40);
     turret.set(0);
+    encoder = turret.getEncoder();
   }
   /**Set turret speed */
   public void setTurret(double speed) {
-    turret.set(speed);
+    inputPower = speed;
   }
   /**Stops Turret */
   public void stopTurret() {
@@ -44,6 +51,16 @@ public class Turret extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
+      turret.set(0);
+    }
+    else if ( (encoder.getPosition() <  LowerMax) && (inputPower < 0)){
+      turret.set(0);
+    }
+    else{
+      turret.set(inputPower);
+    }
+    
     // This method will be called once per scheduler run
   }
 }
