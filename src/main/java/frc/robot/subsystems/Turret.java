@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.*;
 import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -30,6 +31,7 @@ public class Turret extends SubsystemBase {
     turret.setSmartCurrentLimit(40);
     turret.set(0);
     encoder = turret.getEncoder();
+    setDefaultCommand(new TurretManual(this));
   }
   /**Set turret speed */
   public void setTurret(double speed) {
