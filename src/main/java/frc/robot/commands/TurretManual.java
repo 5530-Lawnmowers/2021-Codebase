@@ -5,18 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Turret;
-import frc.robot.helpers.LimelightHelper;
+import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.RobotContainer;
 
-public class TurretAlign extends CommandBase {
-  private final Turret turret;
-  private final double horizontalMargin = 0.1;
-  
-  /** Creates a new TurretAlign. */
-  public TurretAlign(Turret turret) {
-    // Use addRequirements() here to declare subsystem dependencies.
+
+public class TurretManual extends CommandBase {
+  /** Creates a new StartSpin. */
+  private Turret turret;
+  private double turretSet = -.75; //Motor voltage percent output
+  public TurretManual(Turret turret) {
+    
     addRequirements(turret);
     this.turret = turret;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -26,16 +28,15 @@ public class TurretAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(LimelightHelper.getTurretRawX()) >= horizontalMargin) {
-      turret.setTurret(turret.turretPIDCalculate());
-    } else {
-      turret.stopTurret();
-    }
+    turret.setTurret(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
+    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    turret.stopTurret();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -24,6 +24,9 @@ public class Shooter extends SubsystemBase {
     flywheel1.set(0);
     flywheel2.set(0);
   }
+  public double getVelocity() {
+    return flywheel2.getEncoder().getVelocity();
+  }
 
   @Override
   public void periodic() {
