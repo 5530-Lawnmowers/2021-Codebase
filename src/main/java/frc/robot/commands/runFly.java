@@ -9,6 +9,7 @@ import frc.robot.subsystems.*;
 
 public class runFly extends CommandBase {
   private Shooter shooter;
+  private double shooterSet = 1.0;
   /** Creates a new runFly. */
   public runFly(Shooter shooter) {
     addRequirements(shooter);
@@ -24,13 +25,13 @@ public class runFly extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.run();
+    shooter.setShooter(shooterSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stop();
+    shooter.stopShooter();
   }
 
   // Returns true when the command should end.

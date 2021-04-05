@@ -10,7 +10,7 @@ import frc.robot.subsystems.*;
 public class IntakeIn extends CommandBase {
   private Intake intake;
   private double intakeSet = 1.0;
-  private double feedSet = .75;
+  private double spindexSet = -.75;
   private Feed feed;
 
   public IntakeIn(Intake intake, Feed feed) {
@@ -24,7 +24,7 @@ public class IntakeIn extends CommandBase {
   @Override
   public void initialize() {
     intake.setIntake(intakeSet);
-    intake.setFeed(feedSet);
+    intake.setSpindex(spindexSet);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +37,7 @@ public class IntakeIn extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.stopIntake();
-    feed.stopFeed();
+    feed.stopSpindex();
   }
 
   // Returns true when the command should end.

@@ -11,6 +11,7 @@ public class StartSpindex extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
   private double spindexSet = -1.0; 
+  private double gatewheelSet = -.4;
   public StartSpindex(Feed feed) {
     
     addRequirements(feed);
@@ -26,7 +27,7 @@ public class StartSpindex extends CommandBase {
   @Override
   public void execute() {
     feed.setSpindex(spindexSet);
-    feed.setGateWheel();
+    feed.setGateWheel(gatewheelSet);
   }
 
   // Called once the command ends or is interrupted.

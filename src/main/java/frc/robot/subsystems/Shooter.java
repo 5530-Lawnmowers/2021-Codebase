@@ -15,12 +15,12 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
 
   }
-  public void run(){
-    flywheel1.set(1);
-    flywheel2.set(-1);
+  public void setShooter(double speed){
+    flywheel1.set(speed);
+    flywheel2.set(-speed);
 
   }
-  public void stop(){
+  public void stopShooter(){
     flywheel1.set(0);
     flywheel2.set(0);
   }

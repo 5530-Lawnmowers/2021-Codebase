@@ -32,8 +32,8 @@ private final DigitalInput shootSensor = new DigitalInput(Constants.SHOOT_SENSOR
 
   }
   /**Sets the gatewheelspeed */
-  public void setGateWheel(){
-    gateWheel.set(-.4);
+  public void setGateWheel(double speed){
+    gateWheel.set(speed);
   }
   /**Stops the gateWheel */
   public void stopGateWheel(){
