@@ -56,7 +56,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     xb1a.toggleWhenPressed(new PneumaticExtend(pneumatic));
-    xb1b.toggleWhenPressed(new IntakeIn(intake));
+    xb1b.toggleWhenPressed(new IntakeIn(intake, feed));
     xb1y.toggleWhenPressed(new StartSpin(feed));
     xb1x.toggleWhenPressed(new StopSpin(feed));
     xb1lb.whileHeld(new HoodIn(hood));
