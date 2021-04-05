@@ -27,7 +27,7 @@ public class TurretAlign extends CommandBase {
   @Override
   public void execute() {
     if (Math.abs(LimelightHelper.getTurretRawX()) >= horizontalMargin) {
-      turret.setTurret(turret.turretPIDCalculate());
+      turret.setTurret(turret.PIDPower);
     } else {
       turret.stopTurret();
     }

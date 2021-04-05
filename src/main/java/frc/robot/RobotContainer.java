@@ -59,8 +59,6 @@ public class RobotContainer {
     xb1b.toggleWhenPressed(new IntakeIn(intake, feed));
     xb1y.toggleWhenPressed(new StartSpindex(feed));
     xb1x.toggleWhenPressed(new StopSpindex(feed));
-    xb1lb.whileHeld(new HoodIn(hood));
-    xb1rb.whileHeld(new HoodOut(hood));
     xbstart.toggleWhenPressed(new runFly(shooter));
 
 

@@ -21,6 +21,7 @@ public class Turret extends SubsystemBase {
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final PIDController turretPID = new PIDController(.01, .007, .007);
   public CANEncoder encoder;
+  public double PIDPower = 0;
   
 
   /** Creates a new Turret. */
@@ -43,11 +44,12 @@ public class Turret extends SubsystemBase {
    */
   public double turretPIDCalculate() {
     double limelightXOffset = LimelightHelper.getTurretRawX();
-    return turretPID.calculate(limelightXOffset, 0);
+    return PIDPower;
   }
 
   @Override
   public void periodic() {
+    PIDPower = turretPID.calculate(LimelightHelper.getTurretRawX(), 0);
     System.out.println(LimelightHelper.getTurretRawX());
 
     if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
