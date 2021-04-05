@@ -21,9 +21,10 @@ private final DigitalInput shootSensor = new DigitalInput(Constants.SHOOT_SENSOR
     spindex.setIdleMode(IdleMode.kBrake); //set how the motor behaves Idle
     spindex.setSmartCurrentLimit(30); //Prevents Explosion
   }
-  /**Sets the Spindex Speed */
+  /**Sets the Spindex Speed 
+  */
   public void setSpindex (double speed) {
-    spindex.set(speed);
+    spindex.set(-speed); //Positive is toward shooter
   }
 
   /**Stops the Spindex motor */
@@ -33,7 +34,7 @@ private final DigitalInput shootSensor = new DigitalInput(Constants.SHOOT_SENSOR
   }
   /**Sets the gatewheelspeed */
   public void setGateWheel(double speed){
-    gateWheel.set(speed);
+    gateWheel.set(-speed); //postive is Feeding Turret
   }
   /**Stops the gateWheel */
   public void stopGateWheel(){

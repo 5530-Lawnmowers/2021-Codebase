@@ -7,11 +7,11 @@ public class SmartShoot extends CommandBase{
     private Shooter shooter;
     private Feed feed;
     private double accel = 1.0;
-    private double backDrive = 0.2; 
+    private double backDrive = -0.2; 
     private double TARGET = 4500;
     private double THRESHOLD = 4450;
-    private double spindexFeed = -1.0;
-    private double gateWheelFeed = -0.75;
+    private double spindexFeed = 1.0;
+    private double gateWheelFeed = 0.75;
     private double shoot = 0.9;
     public SmartShoot(Shooter shooter, Feed feed) {
         addRequirements(shooter);
