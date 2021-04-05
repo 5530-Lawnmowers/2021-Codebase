@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class StartSpin extends CommandBase {
+public class StopSpindex extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
-  private double spinSet = -1.0; 
-  public StartSpin(Feed feed) {
+  private double spindexSet = 1.0; 
+  public StopSpindex(Feed feed) {
     
     addRequirements(feed);
     this.feed = feed;
@@ -25,15 +25,13 @@ public class StartSpin extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setSpin(spinSet);
-    feed.startGateWheel();
+    feed.setSpindex(spindexSet);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feed.stopSpin();
-    feed.stopGateWheel();
+    feed.stopSpindex();
   }
 
   // Returns true when the command should end.
