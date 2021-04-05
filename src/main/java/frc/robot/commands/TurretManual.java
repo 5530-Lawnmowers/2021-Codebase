@@ -28,7 +28,7 @@ public class TurretManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.setTurret(RobotContainer.XBController2.getX(GenericHID.Hand.kLeft);
+    turret.setTurret(RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.
