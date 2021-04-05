@@ -20,7 +20,6 @@ public class Turret extends SubsystemBase {
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final PIDController turretPID = new PIDController(.01, .007, .007);
-  private final DutyCycleEncoder headingAbs = new DutyCycleEncoder(Constants.HOOD);
   public CANEncoder encoder;
   
 
@@ -46,9 +45,7 @@ public class Turret extends SubsystemBase {
     double limelightXOffset = LimelightHelper.getTurretRawX();
     return turretPID.calculate(limelightXOffset, 0);
   }
-  public double getHeadingAbs() {
-    return headingAbs.get();
-  }
+
   @Override
   public void periodic() {
     if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
