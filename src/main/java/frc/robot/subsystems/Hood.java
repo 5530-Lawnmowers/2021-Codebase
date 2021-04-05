@@ -9,7 +9,7 @@ import frc.robot.Constants;
 import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-
+import frc.robot.commands.*;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -17,7 +17,6 @@ public class Hood extends SubsystemBase {
   
   private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
   private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
-  private final DutyCycleEncoder angleAbs = new DutyCycleEncoder(Constants.HOOD);
  
   private int lowerLimit;
   private int upperLimit;
@@ -27,6 +26,7 @@ public class Hood extends SubsystemBase {
     hood.setIdleMode(IdleMode.kBrake); //set how the motor behaves Idle
     hood.setSmartCurrentLimit(30); //Prevents Explosion
     hood.set(0); // Sets the speed to 0
+    setDefaultCommand(new HoodManual(this));
   }
   /**Sets hood speed */
   public void setHood(double speed) {
@@ -68,9 +68,7 @@ public class Hood extends SubsystemBase {
   
 
 
-  public double getAngleAbs() {
-    return angleAbs.get();
-  }
+  
   @Override
   public void periodic() {
     System.out.println(hood.getEncoder().getPosition());

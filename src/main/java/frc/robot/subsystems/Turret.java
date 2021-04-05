@@ -48,6 +48,8 @@ public class Turret extends SubsystemBase {
 
   @Override
   public void periodic() {
+    System.out.println(LimelightHelper.getTurretRawX());
+
     if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
       turret.set(0);
     }

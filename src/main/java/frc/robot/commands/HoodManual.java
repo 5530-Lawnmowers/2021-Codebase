@@ -6,12 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.RobotContainer;
 
-public class HoodIn extends CommandBase {
+
+public class HoodManual extends CommandBase {
   /** Creates a new StartSpin. */
   private Hood hood;
   private double hoodSet = -.75; //Motor voltage percent output
-  public HoodIn(Hood hood) {
+  public HoodManual(Hood hood) {
     
     addRequirements(hood);
     this.hood = hood;
@@ -25,7 +28,8 @@ public class HoodIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hood.setHood(hoodSet);
+    hood.setHood(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
+    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.
