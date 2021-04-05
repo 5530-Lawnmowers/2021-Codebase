@@ -24,7 +24,7 @@ public class IntakeIn extends CommandBase {
   @Override
   public void initialize() {
     intake.setIntake(intakeSet);
-    intake.setSpindex(spindexSet);
+    feed.setSpindex(spindexSet);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
