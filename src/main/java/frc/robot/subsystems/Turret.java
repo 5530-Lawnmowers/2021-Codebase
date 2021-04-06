@@ -15,12 +15,12 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public final static double UpperMax = 700;
+  public final static double UpperMax = 42;
  
-  public final static double LowerMax = 0;
+  public final static double LowerMax = -159;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final PIDController turretPID = new PIDController(.01, .007, .007);
+  private final PIDController turretPID = new PIDController(.05, 0, .0007);
   public CANEncoder encoder;
   public double PIDPower = 0;
   
@@ -52,8 +52,7 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     PIDPower = turretPID.calculate(LimelightHelper.getTurretRawX(), 0);
-    System.out.println(LimelightHelper.getTurretRawX());
-
+    System.out.println(encoder.getPosition());
     if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
       turret.set(0);
     }

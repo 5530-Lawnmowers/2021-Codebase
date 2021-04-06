@@ -28,6 +28,7 @@ public class HoodManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     hood.setHood(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
     RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
   }

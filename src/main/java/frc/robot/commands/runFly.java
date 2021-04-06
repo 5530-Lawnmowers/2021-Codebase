@@ -9,7 +9,7 @@ import frc.robot.subsystems.*;
 
 public class runFly extends CommandBase {
   private Shooter shooter;
-  private double shooterSet = 1.0;
+  private double shooterSet = .9;
   /** Creates a new runFly. */
   public runFly(Shooter shooter) {
     addRequirements(shooter);

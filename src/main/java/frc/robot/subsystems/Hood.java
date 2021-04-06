@@ -10,16 +10,18 @@ import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.commands.*;
+
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Hood extends SubsystemBase {
-  
-  private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
+  public CANEncoder encoder;
+
+  private final CANSparkMax hood = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushed);
   private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
  
   private int lowerLimit;
-  private int upperLimit;
+  public double upperLimit;
 
   /** Creates a new Hood. */
   public Hood() {
@@ -27,9 +29,15 @@ public class Hood extends SubsystemBase {
     hood.setSmartCurrentLimit(30); //Prevents Explosion
     hood.set(0); // Sets the speed to 0
     setDefaultCommand(new HoodManual(this));
+
   }
   /**Sets hood speed */
   public void setHood(double speed) {
+    //System.out.println(hood.get());
+
+    // if(encoder.getPosition() > upperLimit && speed > 0){
+    //   hood.set(0);
+    // }
     hood.set(speed);
   }
   /**
@@ -63,7 +71,7 @@ public class Hood extends SubsystemBase {
       return 0;
     }
     offset = -FIT_A * Math.log(FIT_B * limelightA);
-    return offset + 0.3; //The + 0.3 is a just constant added to the offset equation
+    return offset + 0.3 - 4; //The + 0.3 is a just constant added to the offset equation
   }
   
 
@@ -71,7 +79,7 @@ public class Hood extends SubsystemBase {
   
   @Override
   public void periodic() {
-    System.out.println(hood.getEncoder().getPosition());
+    // System.out.println(encoder.getPosition());
     // This method will be called once per scheduler run
   }
 }

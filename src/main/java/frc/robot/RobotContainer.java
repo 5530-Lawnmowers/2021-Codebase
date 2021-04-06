@@ -32,6 +32,18 @@ public class RobotContainer {
   public static JoystickButton xb1lb = new JoystickButton(XBController1, 5); 
   public static JoystickButton xb1rb = new JoystickButton(XBController1, 6); 
   public static JoystickButton xbstart = new JoystickButton(XBController1, 8);
+
+
+  public static JoystickButton xb2a = new JoystickButton(XBController2, 1);
+  public static JoystickButton xb2b = new JoystickButton(XBController2, 2);
+  public static JoystickButton xb2lb = new JoystickButton(XBController2, 5);
+  public static JoystickButton xb2rb = new JoystickButton(XBController2, 6);
+  public static JoystickButton xb2y = new JoystickButton(XBController2, 4);
+  public static JoystickButton xb2x = new JoystickButton(XBController2, 3);
+  //public static JoystickButton xbstart = new JoystickButton(XBController, 8);
+  public static JoystickButton xb2back = new JoystickButton(XBController2, 7);
+  public static JoystickButton xb2lstick = new JoystickButton(XBController2, 9);
+  public static JoystickButton xb2rstick = new JoystickButton(XBController2, 10);
   private final Climb climb = new Climb();
   private final Pneumatic pneumatic = new Pneumatic();
 
@@ -56,11 +68,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     xb1a.toggleWhenPressed(new PneumaticExtend(pneumatic));
-    xb1b.toggleWhenPressed(new IntakeIn(intake, feed));
-    xb1y.toggleWhenPressed(new StartSpindex(feed));
-    xb1x.toggleWhenPressed(new StopSpindex(feed));
-    xbstart.toggleWhenPressed(new runFly(shooter));
+    xb2x.toggleWhenPressed(new IntakeIn(intake, feed));
+    xb2a.whenHeld(new StartSpindex(feed));
+    xb2y.whenHeld(new StopSpindex(feed));
 
+    xb2rb.whenHeld(new runFly(shooter));
+    xb2lb.whenHeld(new AlignAll(turret, hood));
+    
 
   }
 

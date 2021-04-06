@@ -51,12 +51,12 @@ public class Drivetrain extends SubsystemBase {
     public static double StartingPose;
 
     public static float WheelCircumference = (float) .160;//in m
-    public static DifferentialDriveOdometry DDO = new DifferentialDriveOdometry(new Rotation2d());
+    // public static DifferentialDriveOdometry DDO = new DifferentialDriveOdometry(new Rotation2d());
     //public static PigeonIMU pigeon = new PigeonIMU(15);
-    public static Rotation2d heading = new Rotation2d();
+    // public static Rotation2d heading = new Rotation2d();
     public static float leftDistance = 0;
     public static float rightDistance = 0;
-    private final AHRS gyro = new AHRS(SerialPort.Port.kMXP);
+    // private final AHRS gyro = new AHRS(SerialPort.Port.kMXP);
 
     /**
      * Creates a new Drivetrain.
@@ -100,7 +100,7 @@ public class Drivetrain extends SubsystemBase {
         drivetrainRight = new SpeedControllerGroup(drivetrainRight1, drivetrainRight2);
         diffDrive = new DifferentialDrive(drivetrainLeft, drivetrainRight);
 
-        gyro.zeroYaw();
+        // gyro.zeroYaw();
         //setDefaultCommand(new ThrottleMotorTest(this)); //Use this for motor tests
         setDefaultCommand(new CurvatureDriveNew(this));
     }
@@ -195,19 +195,19 @@ public class Drivetrain extends SubsystemBase {
         return meters;
     }
 
-    public double getDistanceLeft() {
-        leftDistance = (float) (drivetrainLeft1.getSelectedSensorPosition());
-        leftDistance = leftDistance / TickPerRev;
-        leftDistance = leftDistance * WheelCircumference;
-        return leftDistance;
-    }
+    // public double getDistanceLeft() {
+    //     leftDistance = (float) (drivetrainLeft1.getSelectedSensorPosition());
+    //     leftDistance = leftDistance / TickPerRev;
+    //     leftDistance = leftDistance * WheelCircumference;
+    //     return leftDistance;
+    // }
 
-    public double getDistanceRight() {
-        rightDistance = (float) (drivetrainRight1.getSelectedSensorPosition());
-        rightDistance = rightDistance / TickPerRev;
-        rightDistance = rightDistance * WheelCircumference;
-        return leftDistance;
-    }
+    // public double getDistanceRight() {
+    //     rightDistance = (float) (drivetrainRight1.getSelectedSensorPosition());
+    //     rightDistance = rightDistance / TickPerRev;
+    //     rightDistance = rightDistance * WheelCircumference;
+    //     return leftDistance;
+    // }
 /*
     public void resetSensors() {
         DDO.resetPosition(new Pose2d(), new Rotation2d());
@@ -258,11 +258,11 @@ public class Drivetrain extends SubsystemBase {
         drivetrainRight2.stopMotor();
     }
 
-    public int getLeftEncoder() {
-        return (int)drivetrainLeft1.getSelectedSensorPosition();
-    }
+    // public int getLeftEncoder() {
+    //     return (int)drivetrainLeft1.getSelectedSensorPosition();
+    // }
 
-    public int getRightEncoder() {
-        return (int)drivetrainRight1.getSelectedSensorPosition();
-    }
+    // public int getRightEncoder() {
+    //     return (int)drivetrainRight1.getSelectedSensorPosition();
+    // }
 }

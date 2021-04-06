@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.RobotContainer;
+import frc.robot.helpers.*;
+
 
 
 public class TurretManual extends CommandBase {
@@ -28,7 +30,7 @@ public class TurretManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.setTurret(RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
+    turret.setTurret(-RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.
