@@ -9,7 +9,7 @@ import frc.robot.subsystems.*;
 
 public class IntakeIn extends CommandBase {
   private Intake intake;
-  private double intakeSet = 1.0;
+  private double intakeSet = -1.0;
   private double spindexSet = .75;
   private Feed feed;
 

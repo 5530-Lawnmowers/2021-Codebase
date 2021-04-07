@@ -7,6 +7,8 @@ import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
+import frc.robot.helpers.*;
+
 
 public class Shooter extends SubsystemBase {
   private CANSparkMax flywheel1 = new CANSparkMax(Constants.FLY_1, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -30,6 +32,13 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(getVelocity() > 4500){
+      rumbleHelp.setFly(true);
+    }
+    else{
+      rumbleHelp.setFly(false);
+
+  }
     // This method will be called once per scheduler run
   }
 }

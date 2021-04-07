@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.helpers.*;
 import frc.robot.commands.*;
 import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -61,6 +62,13 @@ public class Turret extends SubsystemBase {
     }
     else{
       turret.set(inputPower);
+    }
+    if(LimelightHelper.getTurretRawX() < .1 ){
+      rumbleHelp.setTurretAlign(true);
+      }
+      else{
+        rumbleHelp.setTurretAlign(false);
+
     }
     
     // This method will be called once per scheduler run

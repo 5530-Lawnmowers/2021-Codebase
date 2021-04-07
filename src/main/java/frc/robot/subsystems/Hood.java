@@ -10,7 +10,7 @@ import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.commands.*;
-
+import frc.robot.helpers.rumbleHelp;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -79,6 +79,12 @@ public class Hood extends SubsystemBase {
   
   @Override
   public void periodic() {
+    if(LimelightHelper.getTurretRawY() - getShootingYOffset(LimelightHelper.getTurretRawY()) <= .2){
+      rumbleHelp.setHoodAlign(true);
+    }
+    else{
+      rumbleHelp.setHoodAlign(false);
+    }
     // System.out.println(encoder.getPosition());
     // This method will be called once per scheduler run
   }
