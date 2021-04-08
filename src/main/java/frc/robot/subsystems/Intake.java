@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
   /**Sets the speed of the intake Motor */
   public void setIntake (double speed) {
     this.intakeSet = speed;
-    intake.set(speed);
+    intake.set(-speed);
   }
   /**Stops the Intake motor */
   public void stopIntake() {
