@@ -17,7 +17,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 public class Hood extends SubsystemBase {
   public CANEncoder encoder;
 
-  private final CANSparkMax hood = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushed);
+  private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
   private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
  
   private int lowerLimit;
