@@ -9,8 +9,8 @@ import frc.robot.subsystems.*;
 
 public class IntakeIn extends CommandBase {
   private Intake intake;
-  private double intakeSet = 1.0;
-  private double spindexSet = .5;
+  private double intakeSet = 1.0; //postive is towards the turret
+  private double spindexSet = .5; // postive is towards the turret
   private Feed feed;
 
   public IntakeIn(Intake intake, Feed feed) {

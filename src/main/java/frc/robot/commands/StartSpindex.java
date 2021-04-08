@@ -10,8 +10,8 @@ import frc.robot.subsystems.*;
 public class StartSpindex extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
-  private double spindexSet = 0.5; 
-  private double gatewheelSet = 1;
+  private double spindexSet = 0.5; //postive is towards the Turret
+  private double gatewheelSet = 1; //postive is towards the Turret
   public StartSpindex(Feed feed) {
     
     addRequirements(feed);
