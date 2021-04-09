@@ -10,7 +10,6 @@ import frc.robot.helpers.*;
 import frc.robot.commands.*;
 import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -31,7 +30,7 @@ public class Turret extends SubsystemBase {
     turret.setIdleMode(IdleMode.kBrake);
     turret.setSmartCurrentLimit(40);
     turret.set(0);
-    encoder = turret.getEncoder();
+    encoder = turret.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
     setDefaultCommand(new TurretManual(this));
   }
   /**Set turret speed */
@@ -45,14 +44,13 @@ public class Turret extends SubsystemBase {
   /** Changes the turret heading to get the limelightXOffset to 0.
    * @return Turret speed from PID Loop 
    */
-  public double turretPIDCalculate() {
-    double limelightXOffset = LimelightHelper.getTurretRawX();
+  public double getPID() {
+    PIDPower = turretPID.calculate(LimelightHelper.getTurretRawX(), 0);
     return PIDPower;
   }
 
   @Override
   public void periodic() {
-    PIDPower = turretPID.calculate(LimelightHelper.getTurretRawX(), 0);
     System.out.println(encoder.getPosition());
     if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
       turret.set(0);
