@@ -19,10 +19,9 @@ public class Turret extends SubsystemBase {
  
   public final static double LowerMax = -159;
   public double inputPower = 0;
-  private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);
   public CANEncoder encoder;
-  public double PIDPower = 0;
   
 
   /** Creates a new Turret. */
@@ -30,7 +29,7 @@ public class Turret extends SubsystemBase {
     turret.setIdleMode(IdleMode.kBrake);
     turret.setSmartCurrentLimit(40);
     turret.set(0);
-    encoder = turret.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
+    encoder = turret.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192); //sets encoder to get data from the data port absolute encoder
     setDefaultCommand(new TurretManual(this));
   }
   /**Set turret speed */
@@ -45,17 +44,17 @@ public class Turret extends SubsystemBase {
    * @return Turret speed from PID Loop 
    */
   public double getPID() {
-    PIDPower = turretPID.calculate(LimelightHelper.getTurretRawX(), 0);
-    return PIDPower;
+    return turretPID.calculate(LimelightHelper.getTurretRawX(), 0); 
+    
   }
 
   @Override
   public void periodic() {
     System.out.println(encoder.getPosition());
-    if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){
+    if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
       turret.set(0);
     }
-    else if ( (encoder.getPosition() <  LowerMax) && (inputPower < 0)){
+    else if ( (encoder.getPosition() <  LowerMax) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
       turret.set(0);
     }
     else{

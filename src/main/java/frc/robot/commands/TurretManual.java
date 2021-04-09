@@ -8,14 +8,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.RobotContainer;
-import frc.robot.helpers.*;
 
 
 
 public class TurretManual extends CommandBase {
   /** Creates a new StartSpin. */
   private Turret turret;
-  private double turretSet = -.75; //Motor voltage percent output
+  //private double turretSet = -.75; //Motor voltage percent output
   public TurretManual(Turret turret) {
     
     addRequirements(turret);
