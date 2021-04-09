@@ -24,15 +24,12 @@ public class rumbleHelp {
         flySpeed = status;
     }
     public static void updateRumble(){
-    if(flySpeed && hoodAlign && turretAlign){
+    if(flySpeed){
         RobotContainer.XBController2.setRumble(RumbleType.kLeftRumble, .25);
         RobotContainer.XBController2.setRumble(RumbleType.kRightRumble, .25);
     }
 
-    else{
-        RobotContainer.XBController2.setRumble(RumbleType.kLeftRumble, 0);
-        RobotContainer.XBController2.setRumble(RumbleType.kRightRumble, 0);
-    }
+
     
 }
 public static void stopRumble(){

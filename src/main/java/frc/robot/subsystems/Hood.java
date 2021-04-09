@@ -70,7 +70,7 @@ public class Hood extends SubsystemBase {
       return 0;
     }
     offset = -FIT_A * Math.log(FIT_B * limelightA);
-    return offset + 0.3 - 4; //The + 0.3 is a just constant added to the offset equation
+    return offset + 0.3 - 4-2; //The + 0.3 is a just constant added to the offset equation
   }
   
 
@@ -78,12 +78,7 @@ public class Hood extends SubsystemBase {
   
   @Override
   public void periodic() {
-    if(LimelightHelper.getTurretRawY() - getShootingYOffset(LimelightHelper.getTurretRawY()) <= .2){
-      rumbleHelp.setHoodAlign(true);
-    }
-    else{
-      rumbleHelp.setHoodAlign(false);
-    }
+   
     // System.out.println(encoder.getPosition());
     // This method will be called once per scheduler run
   }

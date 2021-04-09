@@ -7,6 +7,8 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import frc.robot.helpers.*;
 
 
@@ -15,6 +17,8 @@ public class Shooter extends SubsystemBase {
   private CANSparkMax flywheel2 = new CANSparkMax(Constants.FLY_2, CANSparkMaxLowLevel.MotorType.kBrushless);
   /** Creates a new Shooter. */
   public Shooter() {
+    flywheel1.setIdleMode(IdleMode.kCoast);
+    flywheel2.setIdleMode(IdleMode.kCoast);
 
   }
   public void setShooter(double speed){
@@ -32,14 +36,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Flywheel Velocity", getVelocity());
-    if(getVelocity() > 3000){
-      rumbleHelp.setFly(true);
-    }
-    else{
-      rumbleHelp.setFly(false);
-
-  }
+          
     // This method will be called once per scheduler run
   }
 }

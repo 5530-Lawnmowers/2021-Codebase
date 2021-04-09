@@ -168,3 +168,5 @@ README.md
 *.lock
 
 *.bin
+
+.idea/

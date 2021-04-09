@@ -67,7 +67,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //xb1a.toggleWhenPressed(new PneumaticExtend(pneumatic));
+    xb2rstick.toggleWhenPressed(new PneumaticExtend(pneumatic));
     xb2x.toggleWhenPressed(new IntakeIn(intake, feed));
     xb2a.whenHeld(new StartSpindex(feed));
     xb2y.whenHeld(new StopSpindex(feed));

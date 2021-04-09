@@ -32,12 +32,13 @@ public class TurretManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(RobotContainer.XBController2.getX(GenericHID.Hand.kLeft)) <= 0.3) {// Ryan help
-      turret.stopTurret();
-    }else {
-      turret.setTurret(-RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
+    if(Math.abs(RobotContainer.XBController2.getX(GenericHID.Hand.kLeft)) > .1){
+    turret.setTurret(-RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
     }
-    
+    else{
+      turret.setTurret(0);
+
+    }
   }
 
   // Called once the command ends or is interrupted.

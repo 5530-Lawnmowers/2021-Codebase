@@ -10,7 +10,7 @@ import frc.robot.subsystems.*;
 public class StopSpindex extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
-  private double spindexSet = -1.0; //negative away from shooter
+  private double spindexSet = -.5; //negative away from shooter
   public StopSpindex(Feed feed) {
     
     addRequirements(feed);

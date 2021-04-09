@@ -60,13 +60,7 @@ public class Turret extends SubsystemBase {
     else{
       turret.set(inputPower);
     }
-    if(LimelightHelper.getTurretRawX() < .1 ){
-      rumbleHelp.setTurretAlign(true);
-      }
-      else{
-        rumbleHelp.setTurretAlign(false);
-
-    }
+    
     
     // This method will be called once per scheduler run
   }
