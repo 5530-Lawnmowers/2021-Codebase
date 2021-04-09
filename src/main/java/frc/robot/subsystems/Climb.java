@@ -23,7 +23,8 @@ public class Climb extends SubsystemBase {
   private final double kP = 0;
   private final double kI = 0;
   private final double kD = 0;
-  private final double kFF = 0;
+  private final double kF = 0;
+  private final double IZone = 0;
   private final double maxVel = 0;
   private final double minVel = 0;
   private final double allowedErr = 0;
