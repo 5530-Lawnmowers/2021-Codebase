@@ -6,6 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
+
+import com.ctre.phoenix.CANifier.GeneralPin;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.RobotContainer;
 
@@ -29,7 +32,12 @@ public class TurretManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.setTurret(-RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
+    if (Math.abs(RobotContainer.XBController2.getX(GenericHID.Hand.kLeft)) <= 0.3) {// Ryan help
+      turret.stopTurret();
+    }else {
+      turret.setTurret(-RobotContainer.XBController2.getX(GenericHID.Hand.kLeft));
+    }
+    
   }
 
   // Called once the command ends or is interrupted.

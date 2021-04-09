@@ -27,12 +27,13 @@ public class Shooter extends SubsystemBase {
     flywheel2.set(0);
   }
   public double getVelocity() {
-    return flywheel2.getEncoder().getVelocity();
+    return flywheel1.getEncoder().getVelocity();
   }
 
   @Override
   public void periodic() {
-    if(getVelocity() > 4500){
+    
+    if(getVelocity() > 3000){
       rumbleHelp.setFly(true);
     }
     else{

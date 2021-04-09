@@ -36,7 +36,7 @@ public final class Constants {
     public static final int TURRET = 41; //Spark NEO 550
 
     //Feed Sensor
-    public static final int SHOOT_SENSOR = 2;
+    public static final int SHOOT_SENSOR = 3;
 
     
 

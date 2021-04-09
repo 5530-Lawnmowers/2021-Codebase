@@ -8,8 +8,8 @@ public class SmartShoot extends CommandBase{
     private Feed feed;
     private double accel = 1.0;
     private double shoot = 0.9;
-    private double TARGET = 4500;
-    private double THRESHOLD = 4450;
+    private double TARGET = 3200;
+    private double THRESHOLD = 3000;
     private double spindexFeed = .5;
     private double gateWheelFeed = 1;
 

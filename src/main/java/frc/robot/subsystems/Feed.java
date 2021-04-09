@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -51,6 +52,7 @@ private final DigitalInput shootSensor = new DigitalInput(Constants.SHOOT_SENSOR
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Breakbeam", getBreakbeam());
     // This method will be called once per scheduler run
   }
 }

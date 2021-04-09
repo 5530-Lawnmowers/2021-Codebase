@@ -40,7 +40,7 @@ public class RobotContainer {
   public static JoystickButton xb2rb = new JoystickButton(XBController2, 6);
   public static JoystickButton xb2y = new JoystickButton(XBController2, 4);
   public static JoystickButton xb2x = new JoystickButton(XBController2, 3);
-  //public static JoystickButton xbstart = new JoystickButton(XBController, 8);
+  public static JoystickButton xb2start = new JoystickButton(XBController2, 8);
   public static JoystickButton xb2back = new JoystickButton(XBController2, 7);
   public static JoystickButton xb2lstick = new JoystickButton(XBController2, 9);
   public static JoystickButton xb2rstick = new JoystickButton(XBController2, 10);
@@ -67,14 +67,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    xb1a.toggleWhenPressed(new PneumaticExtend(pneumatic));
+    //xb1a.toggleWhenPressed(new PneumaticExtend(pneumatic));
     xb2x.toggleWhenPressed(new IntakeIn(intake, feed));
     xb2a.whenHeld(new StartSpindex(feed));
     xb2y.whenHeld(new StopSpindex(feed));
-
+    xb2start.whenHeld(new SmartShoot(shooter, feed));
     xb2rb.whenHeld(new runFly(shooter));
     xb2lb.whenHeld(new AlignAll(turret, hood));
-    
+    xb1a.whenHeld(new FlipUpClimb(climb));
 
   }
 
