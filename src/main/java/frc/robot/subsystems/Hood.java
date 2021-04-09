@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.commands.*;
 import frc.robot.helpers.rumbleHelp;
 import com.revrobotics.*;
