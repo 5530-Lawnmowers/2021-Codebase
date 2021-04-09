@@ -12,21 +12,15 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.controller.PIDController;
 
 public class Climb extends SubsystemBase {
   private final CANSparkMax climbL = new CANSparkMax(Constants.CLIMB_L, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final CANSparkMax climbR = new CANSparkMax(Constants.CLIMB_R, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final CANPIDController leftMotion = climbL.getPIDController();
-  private final CANPIDController rightMotion = climbR.getPIDController();
+  private final PIDController climbPID = new PIDController(0, 0, 0, 0);
   private final int upperLimit = 2;
   private final int lowerLimit = 0;
-  private final double kP = 0;
-  private final double kI = 0;
-  private final double kD = 0;
-  private final double kF = 0;
-  private final double IZone = 0;
-  private final double maxVel = .2;
-  private final double allowedErr = 0;
+ 
   
   public Climb() {
     climbL.setIdleMode(IdleMode.kBrake);
@@ -34,9 +28,9 @@ public class Climb extends SubsystemBase {
     climbL.set(0);
     climbR.set(0);
   }
-  public void rotateClimb() {
-    leftMotion.setReference(-upperLimit, ControlType.kSmartMotion);
-    //rightMotion.setReference(upperLimit, ControlType.kSmartMotion);
+  public void rotateClimb(double speed) {
+    climbL.set(speed);
+    climbR.follow(climbL, true);
   }
   public double getPosition() {
     return climbL.getEncoder().getPosition();
@@ -48,7 +42,6 @@ public class Climb extends SubsystemBase {
   
   @Override
   public void periodic() {
-    leftMotion.setSmartMotionMaxVelocity(10, 0);
     SmartDashboard.putNumber("Climb", getPosition());
     // This method will be called once per scheduler run
   }
