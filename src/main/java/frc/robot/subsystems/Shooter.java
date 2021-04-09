@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 import frc.robot.Constants;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
 import frc.robot.helpers.*;
@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+    SmartDashboard.putNumber("Flywheel Velocity", getVelocity());
     if(getVelocity() > 3000){
       rumbleHelp.setFly(true);
     }
