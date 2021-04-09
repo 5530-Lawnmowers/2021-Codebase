@@ -26,7 +26,6 @@ public class Climb extends SubsystemBase {
   private final double kF = 0;
   private final double IZone = 0;
   private final double maxVel = 0;
-  private final double minVel = 0;
   private final double allowedErr = 0;
   public Climb() {
     climbL.setIdleMode(IdleMode.kBrake);
@@ -34,7 +33,7 @@ public class Climb extends SubsystemBase {
     climbL.set(0);
     climbR.set(0);
   }
-  public void setClimb() {
+  public void rotateClimb() {
     leftMotion.setReference(upperLimit, ControlType.kSmartMotion);
     rightMotion.setReference(upperLimit, ControlType.kSmartMotion);
   }
