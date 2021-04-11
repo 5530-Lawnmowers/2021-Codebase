@@ -47,6 +47,24 @@ public class Turret extends SubsystemBase {
     return turretPID.calculate(LimelightHelper.getTurretRawX(), 0); 
     
   }
+  /**
+   * Get the require X-axis(Vertical) offset for accurate shooting
+   * Equation compensates for the gatewheel side spin.
+   * 
+   * @return offset
+   */
+  public double getHeadingXOffset() {
+    final double FIT_A = -9.039;
+    final double FIT_B = 0.4935;
+    double offset;
+    offset = -FIT_A * Math.log(FIT_B * encoder.getPosition());
+    return offset + 0.3 - 4-2; //The + 0.3 is a just constant added to the offset equation
+  }
+  public double getVelocityXOffset() {
+    double offset = 0;
+    //some Function of Robot Velocity
+    return offset;
+  }
 
   @Override
   public void periodic() {
