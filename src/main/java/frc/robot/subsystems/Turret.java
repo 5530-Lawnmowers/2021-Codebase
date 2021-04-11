@@ -10,6 +10,7 @@ import frc.robot.helpers.*;
 import frc.robot.commands.*;
 import frc.robot.helpers.LimelightHelper;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -57,18 +58,33 @@ public class Turret extends SubsystemBase {
     final double FIT_A = -9.039;
     final double FIT_B = 0.4935;
     double offset;
-    offset = -FIT_A * Math.log(FIT_B * encoder.getPosition());
+    offset = -FIT_A * Math.log(FIT_B * getHeading());
     return offset + 0.3 - 4-2; //The + 0.3 is a just constant added to the offset equation
   }
+  /**Get an offset to compensate for sideways driving velocity
+   * 
+   * @return offset
+  */
   public double getVelocityXOffset() {
     double offset = 0;
     //some Function of Robot Velocity
     return offset;
   }
+  /**
+   * return the Heading of the Turret. Zero is whereever we set it. 
+   * Currently set at Robot Right
+   * @return Heading in degrees
+   */
+  public double getHeading() {
+    double position;
+    position = (encoder.getPosition() / 6.25) * 360; // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn. Then multiply by 360 to get heading in degrees.
+    return position;
+  }
 
   @Override
   public void periodic() {
     System.out.println(encoder.getPosition());
+    SmartDashboard.putNumber("Turret Heading", getHeading());
     if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
       turret.set(0);
     }

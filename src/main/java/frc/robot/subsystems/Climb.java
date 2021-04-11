@@ -4,20 +4,16 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.controller.PIDController;
 
 public class Climb extends SubsystemBase {
   private final CANSparkMax climbL = new CANSparkMax(Constants.CLIMB_L, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final CANSparkMax climbR = new CANSparkMax(Constants.CLIMB_R, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final PIDController climbPID = new PIDController(0, 0, 0, 0);
   private final int upperLimit = 2;
   private final int lowerLimit = 0;
  
@@ -42,7 +38,8 @@ public class Climb extends SubsystemBase {
   
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Climb", getPosition());
+    SmartDashboard.putNumber("ClimbL Position", getPosition());
+    SmartDashboard.putNumber("ClimbR Position", climbR.getEncoder().getPosition());
     // This method will be called once per scheduler run
   }
 }
