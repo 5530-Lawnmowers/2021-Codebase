@@ -41,12 +41,12 @@ private final DigitalInput shootSensor = new DigitalInput(Constants.SHOOT_SENSOR
   public void stopGateWheel(){
     gateWheel.set(0);
   }
-  /**Returns the state of the Shoot Breakbeam {@code true} if clear, {@code false} if not 
+  /**Returns the state of the Shoot Breakbeam {@code true} if there is no ball, {@code false} if there is a ball 
    * 
    * @return boolean
   */
   public boolean getBreakbeam() {
-    boolean state = !shootSensor.get();//Physically the breakbeam returns false when it detects the beam.
+    boolean state = !shootSensor.get();//Physically the breakbeam returns False when there is no Ball
     return state;
   }
 
