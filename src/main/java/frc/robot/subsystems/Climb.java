@@ -31,7 +31,7 @@ public class Climb extends SubsystemBase {
     climbR.setIdleMode(IdleMode.kBrake);
     climbL.set(0);
     climbR.set(0);
-    setDefaultCommand(new ClimbManual(this));
+    //setDefaultCommand(new ClimbManual(this));
   }
   public void setClimb(double speed) {
     climbL.set(-speed);

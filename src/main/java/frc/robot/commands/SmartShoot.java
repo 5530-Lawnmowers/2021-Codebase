@@ -11,7 +11,8 @@ public class SmartShoot extends CommandBase{
     private double TARGET = 3250;
     private double THRESHOLD = 3200;
     private double spindexFeed = 0.5;
-    private double gateWheelFeed = 1;
+    private double gateWheelFeed = .2;
+    private double gateWheelSpeedFeed = 1;
 
     public SmartShoot(Shooter shooter, Feed feed) {
         addRequirements(shooter, feed);
@@ -34,10 +35,10 @@ public class SmartShoot extends CommandBase{
           feed.stopSpindex();
         }
       } else if (shooter.getVelocity() < TARGET) { //4450 <= Flywheel Speed < Target
-        shooter.setShooter(shoot); //Set flyhweel to 0.9 output
+        shooter.setShooter(shoot); //Set flyhweel to 0.85 output
       } else {//Flywheel >= 4500
         shooter.setShooter(shoot); //Sets flywheel to 0.9 output
-        feed.setGateWheel(gateWheelFeed); //Feeds cells toward the shooter
+        feed.setGateWheel(gateWheelSpeedFeed); //Feeds cells toward the shooter
         feed.setSpindex(spindexFeed);
       }
     }

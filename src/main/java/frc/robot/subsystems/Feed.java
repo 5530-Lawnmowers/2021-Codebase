@@ -46,7 +46,7 @@ private final DigitalInput shootSensor = new DigitalInput(Constants.SHOOT_SENSOR
    * @return boolean
   */
   public boolean getBreakbeam() {
-    boolean state = !shootSensor.get();//Physically the breakbeam returns False when there is no Ball
+    boolean state = shootSensor.get();//Physically the breakbeam returns False when there is no Ball
     return state;
   }
 
