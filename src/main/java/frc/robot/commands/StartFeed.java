@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class StartSpindex extends CommandBase {
+public class StartFeed extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
   private double spindexSet = .70; 
   private double gatewheelSet = 1;
-  public StartSpindex(Feed feed) {
+  public StartFeed(Feed feed) {
     
     addRequirements(feed);
     this.feed = feed;
