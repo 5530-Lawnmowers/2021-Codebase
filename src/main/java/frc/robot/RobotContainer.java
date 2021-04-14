@@ -70,11 +70,10 @@ public class RobotContainer {
     xb2rstick.toggleWhenPressed(new PneumaticExtend(pneumatic));
     xb2x.toggleWhenPressed(new IntakeIn(intake));
     xb2a.whenHeld(new StartFeed(feed));
-    xb2y.whenHeld(new StopSpindex(feed));
+    xb2y.whenHeld(new SpindexReverse(feed));
     xb2start.whenHeld(new SmartShoot(shooter, feed));
     xb2rb.whenHeld(new runFly(shooter));
     xb2lb.whenHeld(new AlignAll(turret, hood));
-    //xb1a.whenHeld(new ClimbManual(climb));
 
   }
 

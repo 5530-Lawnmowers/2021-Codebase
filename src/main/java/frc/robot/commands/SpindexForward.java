@@ -7,11 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class StopSpindex extends CommandBase {
+public class SpindexForward extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
-  private double spindexSet = -.5; //negative away from shooter
-  public StopSpindex(Feed feed) {
+  private double spindexSet = .5; //negative away from shooter
+  
+  public SpindexForward(Feed feed) {
     
     addRequirements(feed);
     this.feed = feed;
