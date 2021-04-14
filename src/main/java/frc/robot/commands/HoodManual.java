@@ -29,8 +29,8 @@ public class HoodManual extends CommandBase {
   @Override
   public void execute() {
     
-    hood.setHood(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
-    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
+//    hood.setHood(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
+//    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.

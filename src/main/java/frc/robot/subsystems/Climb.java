@@ -10,19 +10,23 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import frc.robot.RobotContainer;
 import frc.robot.commands.*;
 public class Climb extends SubsystemBase {
   private Preferences prefs;
   private final CANSparkMax climbL = new CANSparkMax(Constants.CLIMB_L, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final CANSparkMax climbR = new CANSparkMax(Constants.CLIMB_R, CANSparkMaxLowLevel.MotorType.kBrushless);
   
-  private final CANPIDController climbController = climbL.getPIDController();
+  private final CANPIDController climbControllerL = climbL.getPIDController();
+  private final CANPIDController climbControllerR =climbR.getPIDController();
   private double armUp = 2.3;
+  private boolean pressed =false;
   private double armDown = 0;
   private double kP = 5E-1;
   private double kI = 0;
@@ -42,13 +46,21 @@ public class Climb extends SubsystemBase {
     //climbR.follow(climbL, true);
   }
   public void getPIDController() {
-    climbController.setP(kP);
-    climbController.setI(kI);
-    climbController.setD(kD);
-    climbController.setFF(kFF);
-    climbController.setIZone(kIz);
-    climbController.setOutputRange(-.25, .25);
-    climbController.setReference(-armUp, ControlType.kPosition);
+    climbControllerL.setP(kP);
+    climbControllerL.setI(kI);
+    climbControllerL.setD(kD);
+    climbControllerL.setFF(kFF);
+    climbControllerL.setIZone(kIz);
+    climbControllerL.setOutputRange(-.25, .25);
+    climbControllerL.setReference(-armUp, ControlType.kPosition);
+
+    climbControllerR.setP(1.75);
+    climbControllerR.setI(.03);
+    climbControllerR.setD(kD);
+    climbControllerR.setFF(kFF);
+    climbControllerR.setIZone(kIz);
+    climbControllerR.setOutputRange(-.75, .75);
+    climbControllerR.setReference(1.9, ControlType.kPosition);
 
   }
   public double getPosition() {
@@ -65,7 +77,17 @@ public class Climb extends SubsystemBase {
   
   @Override
   public void periodic() {
+    if(RobotContainer.XBController2.getAButton() || pressed){
+      pressed=true;
+      climbL.set(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight));
+      climbR.set(-RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight));
+
+
+
+    }
     SmartDashboard.putNumber("ClimbL",getPosition());
+    SmartDashboard.putNumber("ClimbR",climbR.getEncoder().getPosition());
+
     // This method will be called once per scheduler run
   }
 }

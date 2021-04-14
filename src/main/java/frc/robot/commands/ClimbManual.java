@@ -26,8 +26,7 @@ private final Climb climb;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climb.setClimb(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight)/2 -
-    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft)/2);
+
   }
 
   // Called once the command ends or is interrupted.
