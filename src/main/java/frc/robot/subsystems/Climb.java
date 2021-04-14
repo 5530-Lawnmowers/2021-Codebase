@@ -14,37 +14,41 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Preferences;
-
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import frc.robot.commands.*;
 public class Climb extends SubsystemBase {
   private Preferences prefs;
   private final CANSparkMax climbL = new CANSparkMax(Constants.CLIMB_L, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final CANSparkMax climbR = new CANSparkMax(Constants.CLIMB_R, CANSparkMaxLowLevel.MotorType.kBrushless);
   
   private final CANPIDController climbController = climbL.getPIDController();
-  private double armUp = 2;
+  private double armUp = 2.3;
   private double armDown = 0;
-  private double kP = 5E-6;
+  private double kP = 5E-1;
   private double kI = 0;
   private double kD = 0;
-  private double kFF = 0;
+  private double kFF = 0.00002;
+  private double kIz = 0;
   
   public Climb() {
     climbL.setIdleMode(IdleMode.kBrake);
     climbR.setIdleMode(IdleMode.kBrake);
     climbL.set(0);
     climbR.set(0);
-    //setDefaultCommand(new ClimbManual(this));
+    setDefaultCommand(new ClimbManual(this));
   }
   public void setClimb(double speed) {
     climbL.set(-speed);
     //climbR.follow(climbL, true);
   }
-  public void PID() {
+  public void getPIDController() {
     climbController.setP(kP);
     climbController.setI(kI);
     climbController.setD(kD);
     climbController.setFF(kFF);
-    climbController.setReference(armUp, ControlType.kPosition);
+    climbController.setIZone(kIz);
+    climbController.setOutputRange(-.25, .25);
+    climbController.setReference(-armUp, ControlType.kPosition);
 
   }
   public double getPosition() {
@@ -61,17 +65,7 @@ public class Climb extends SubsystemBase {
   
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ClimbL Position", getPosition());
-    SmartDashboard.putNumber("ClimbR Position", climbR.getEncoder().getPosition());
-    prefs = Preferences.getInstance();
-    kP = prefs.getDouble("P", 5E-6);
-    kI = prefs.getDouble("I", 0);
-    kD = prefs.getDouble("D", 0);
-    kFF = prefs.getDouble("FF", 0);
-    armUp = prefs.getDouble("armUp", -2);
-    armDown = prefs.getDouble("armDown", 0);
-
-    
+    SmartDashboard.putNumber("ClimbL",getPosition());
     // This method will be called once per scheduler run
   }
 }

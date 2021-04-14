@@ -5,36 +5,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.subsystems.Climb;
 
-public class ClimbManual extends CommandBase {
-private final Climb climb;
-  /** Creates a new FlipUpClimb. */
-  public ClimbManual(Climb climb) {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class ClimbSetZero extends CommandBase {
+  /** Creates a new Climb. */
+  private final Climb climb;
+  public ClimbSetZero(Climb climb) {
     addRequirements(climb);
     this.climb = climb;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
-
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climb.setClimb(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight)/2 -
-    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft)/2);
+    climb.setZero();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    climb.stopClimb();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

@@ -5,37 +5,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Climb;
 
-public class StartFeed extends CommandBase {
-  /** Creates a new StartSpin. */
-  private Feed feed;
-  private double spindexSet = .70; 
-  private double gatewheelSet = 1;
-  public StartFeed(Feed feed) {
-    
-    addRequirements(feed);
-    this.feed = feed;
+public class ClimbPID extends CommandBase {
+  /** Creates a new Climb. */
+  private final Climb climb;
+  public ClimbPID(Climb climb) {
+    addRequirements(climb);
+    this.climb = climb;
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setSpindex(spindexSet);
-    feed.setGateWheel(gatewheelSet);
+    climb.getPIDController();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    feed.stopSpindex();
-    feed.stopGateWheel();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
