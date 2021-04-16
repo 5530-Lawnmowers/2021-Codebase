@@ -4,22 +4,21 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc.robot.RobotContainer;
 import frc.robot.commands.*;
+
 public class Climb extends SubsystemBase {
-  private Preferences prefs;
   private final CANSparkMax climbL = new CANSparkMax(Constants.CLIMB_L, CANSparkMaxLowLevel.MotorType.kBrushless);
   private final CANSparkMax climbR = new CANSparkMax(Constants.CLIMB_R, CANSparkMaxLowLevel.MotorType.kBrushless);
   
@@ -27,7 +26,6 @@ public class Climb extends SubsystemBase {
   private final CANPIDController climbControllerR =climbR.getPIDController();
   private double armUp = 2.3;
   private boolean pressed =false;
-  private double armDown = 0;
   private double kP = 5E-1;
   private double kI = 0;
   private double kD = 0;
@@ -45,6 +43,9 @@ public class Climb extends SubsystemBase {
     climbL.set(-speed);
     //climbR.follow(climbL, true);
   }
+  /**
+   * Uses the SparkMAX onboard PID Loop and set's the refrence point using a simple position loop.
+   */
   public void getPIDController() {
     climbControllerL.setP(kP);
     climbControllerL.setI(kI);
@@ -63,9 +64,15 @@ public class Climb extends SubsystemBase {
     climbControllerR.setReference(1.9, ControlType.kPosition);
 
   }
+  /**
+   * Gets the encoder position from the NEO HAL sensor. NEEDS TO BE ZEROED 
+   */
   public double getPosition() {
     return climbL.getEncoder().getPosition();
   }
+  /**
+   * Sets the NEO HAL encoder to read 0.
+   */
   public void setZero() {
     climbL.getEncoder().setPosition(0);
     climbR.getEncoder().setPosition(0);
@@ -81,11 +88,8 @@ public class Climb extends SubsystemBase {
       pressed=true;
       climbL.set(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight));
       climbR.set(-RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight));
-
-
-
     }
-    SmartDashboard.putNumber("ClimbL",getPosition());
+    SmartDashboard.putNumber("ClimbL",getPosition());//sends data to the Dashboard. Read only.
     SmartDashboard.putNumber("ClimbR",climbR.getEncoder().getPosition());
 
     // This method will be called once per scheduler run

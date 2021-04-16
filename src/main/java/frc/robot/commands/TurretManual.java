@@ -7,8 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-import com.ctre.phoenix.CANifier.GeneralPin;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.RobotContainer;
 

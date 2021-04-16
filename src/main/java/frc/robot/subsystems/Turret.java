@@ -44,7 +44,7 @@ public class Turret extends SubsystemBase {
    * @return Turret speed from PID Loop 
    */
   public double getPID() {
-    return turretPID.calculate(LimelightHelper.getTurretRawX(), 0); 
+    return turretPID.calculate(LimelightHelper.getTurretRawX(), getHeadingXOffset()); 
     
   }
   /**
@@ -54,11 +54,9 @@ public class Turret extends SubsystemBase {
    * @return offset
    */
   public double getHeadingXOffset() {
-    final double FIT_A = -9.039;
-    final double FIT_B = 0.4935;
-    double offset;
-    offset = -FIT_A * Math.log(FIT_B * getHeading());
-    return offset + 0.3 - 4-2; //The + 0.3 is a just constant added to the offset equation
+    double FIT_A = 0;
+    double offset = FIT_A * getHeading(); //function for offset
+    return offset; //The + 0.3 is a just constant added to the offset equation
   }
   /**Get an offset to compensate for sideways driving velocity
    * 
@@ -75,8 +73,7 @@ public class Turret extends SubsystemBase {
    * @return Heading in degrees
    */
   public double getHeading() {
-    double position;
-    position = (encoder.getPosition() / 6.25) * 360; // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn. Then multiply by 360 to get heading in degrees.
+    double position = (encoder.getPosition() / 6.25); // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn.
     return position;
   }
 

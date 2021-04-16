@@ -5,8 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.subsystems.Climb;
 
 public class ClimbManual extends CommandBase {

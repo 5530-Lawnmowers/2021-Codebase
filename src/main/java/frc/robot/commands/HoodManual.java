@@ -13,7 +13,6 @@ import frc.robot.RobotContainer;
 public class HoodManual extends CommandBase {
   /** Creates a new StartSpin. */
   private Hood hood;
-  private double hoodSet = -.75; //Motor voltage percent output
   public HoodManual(Hood hood) {
     
     addRequirements(hood);
@@ -27,10 +26,9 @@ public class HoodManual extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
-//    hood.setHood(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
-//    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
+  public void execute() {  
+    hood.setHood(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight) -
+    RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.

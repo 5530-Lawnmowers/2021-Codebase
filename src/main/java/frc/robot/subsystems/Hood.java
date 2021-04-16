@@ -27,7 +27,7 @@ public class Hood extends SubsystemBase {
     hood.setIdleMode(IdleMode.kBrake); //set how the motor behaves Idle
     hood.setSmartCurrentLimit(30); //Prevents Explosion
     hood.set(0); // Sets the speed to 0
-    //setDefaultCommand(new HoodManual(this));
+    setDefaultCommand(new HoodManual(this));
 
   }
   /**Sets hood speed */
