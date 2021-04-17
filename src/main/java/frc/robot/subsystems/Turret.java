@@ -15,9 +15,9 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public final static double UpperMax = 42;
+  public final static double UpperMax = .307480 - .001367; // .001367 * 6.25 // end -.332168 * 6.25
  
-  public final static double LowerMax = -159;
+  public final static double LowerMax = -.332168 - .001367;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);
@@ -26,6 +26,7 @@ public class Turret extends SubsystemBase {
 
   /** Creates a new Turret. */
   public Turret() {
+
     turret.setIdleMode(IdleMode.kBrake);
     turret.setSmartCurrentLimit(40);
     turret.set(0);
@@ -79,12 +80,11 @@ public class Turret extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(encoder.getPosition());
     SmartDashboard.putNumber("Turret Heading", getHeading());
-    if( (encoder.getPosition() > UpperMax) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
+    if( (getHeading() > UpperMax) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
       turret.set(0);
     }
-    else if ( (encoder.getPosition() <  LowerMax) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
+    else if ( (getHeading() <  LowerMax) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
       turret.set(0);
     }
     else{

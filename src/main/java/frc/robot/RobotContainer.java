@@ -67,14 +67,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    xb2rstick.toggleWhenPressed(new PneumaticExtend(pneumatic));
+//    .toggleWhenPressed(new PneumaticExtend(pneumatic));
     xb2x.toggleWhenPressed(new IntakeIn(intake));
     //xb2a.whenHeld(new FeedUp(feed));
     xb2y.whenHeld(new SpindexReverse(feed));
     xb2start.whenHeld(new SmartShoot(shooter, feed));
     xb2rb.whenHeld(new runFly(shooter));
     xb2lb.whenHeld(new AlignAll(turret, hood));
-    xb2a.whenHeld(new ClimbPID(climb));
+    xb2rstick.whenHeld(new ClimbPID(climb));
     xb2b.whenHeld(new ClimbSetZero(climb));
   }
 

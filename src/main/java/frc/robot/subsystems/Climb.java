@@ -24,9 +24,9 @@ public class Climb extends SubsystemBase {
   
   private final CANPIDController climbControllerL = climbL.getPIDController();
   private final CANPIDController climbControllerR =climbR.getPIDController();
-  private double armUp = 2.3;
+  private double armUp = 1.2;
   private boolean pressed =false;
-  private double kP = 5E-1;
+  private double kP = .5;
   private double kI = 0;
   private double kD = 0;
   private double kFF = 0.00002;
@@ -55,13 +55,13 @@ public class Climb extends SubsystemBase {
     climbControllerL.setOutputRange(-.25, .25);
     climbControllerL.setReference(-armUp, ControlType.kPosition);
 
-    climbControllerR.setP(1.75);
-    climbControllerR.setI(.03);
+    climbControllerR.setP(.12);
+    climbControllerR.setI(0);
     climbControllerR.setD(kD);
     climbControllerR.setFF(kFF);
     climbControllerR.setIZone(kIz);
-    climbControllerR.setOutputRange(-.75, .75);
-    climbControllerR.setReference(1.9, ControlType.kPosition);
+    climbControllerR.setOutputRange(-.25, .25);
+    climbControllerR.setReference(1.6, ControlType.kPosition);
 
   }
   /**
