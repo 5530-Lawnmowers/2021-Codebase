@@ -16,7 +16,7 @@ public class Flywheel extends SubsystemBase {
   private CANSparkMax flywheel2 = new CANSparkMax(Constants.FLY_2, CANSparkMaxLowLevel.MotorType.kBrushless);
   private CANPIDController flywheel1PID = flywheel1.getPIDController();
   private CANPIDController flywheel2PID = flywheel2.getPIDController();
-  private double kP = 5E-6;
+  private double kP = 5E-5;
   private double kI = 0;
   private double kD = 0;
   private double kFF = .0000156;
@@ -24,7 +24,9 @@ public class Flywheel extends SubsystemBase {
   public Flywheel() {
     flywheel1.setIdleMode(IdleMode.kCoast);
     flywheel2.setIdleMode(IdleMode.kCoast);
-    ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kP", 5E-6);
+    
+    //Shuffleboard Quick PID Tuning 
+    ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kP", 5E-5);
     ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kI", 0);
     ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kD", 0);
     ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kFF", .0000156);
@@ -59,7 +61,8 @@ public class Flywheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    //Useful Info for PID Loop
+    ShuffleboardHelpers.setWidgetValue("Flywheel", "Flywheel Voltage", flywheel1.get());
     kP = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kP");
     kI = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kI");
     kD = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kD");
