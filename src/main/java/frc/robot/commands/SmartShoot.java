@@ -4,17 +4,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 public class SmartShoot extends CommandBase{
     
-    private Shooter shooter;
+    private Flywheel shooter;
     private Feed feed;
-    private double accel = 1;
-    private double shoot = 0.9;
+    private double accel = .99;
+    private double shoot = 0.85;
+    private double SLOWSPEED = 1000;
     private double TARGET = 3250;
     private double THRESHOLD = 3200;
     private double spindexFeed = 0.5;
+    private double gateWheelFeedSlow = .1;
     private double gateWheelFeed = .2;
-    private double gateWheelSpeedFeed = 1;
+    private double gateWheelFeedFast = 1;
 
-    public SmartShoot(Shooter shooter, Feed feed) {
+    public SmartShoot(Flywheel shooter, Feed feed) {
         addRequirements(shooter, feed);
         this.shooter = shooter;
         this.feed = feed;
@@ -23,8 +25,16 @@ public class SmartShoot extends CommandBase{
 
     }
     public void execute() {
-        
-      if (shooter.getVelocity() < THRESHOLD) { //Flywheel < 4500
+      if (shooter.getVelocity() < SLOWSPEED) { // at slowspeed of flwheel only move gatewheel to reduce the chance of jamming multiple balls into the system
+        shooter.setShooter(accel);
+        if (feed.getBreakbeam()) { // If the breakbeam returns true(no ball)
+          feed.setGateWheel(gateWheelFeedSlow); //feeds the balls up the gatewheel
+        } else { //If the breakbeam returns false
+          feed.stopGateWheel(); //stops feeding the balll
+        }
+      }
+      
+      else if (shooter.getVelocity() < THRESHOLD) { //at THRESHOLD Speed begin to move the spindex aswell and speed up the gatewheel. This is to reduce the chance of jamming while maximizing shoot speed.
           shooter.setShooter(accel);//Sets Shooter voltage to .9
          
         if (feed.getBreakbeam()) { // If the breakbeam returns true(no ball)
@@ -34,11 +44,15 @@ public class SmartShoot extends CommandBase{
           feed.stopGateWheel(); //stops feeding the balls
           feed.stopSpindex();
         }
-      } else if (shooter.getVelocity() < TARGET) { //4450 <= Flywheel Speed < Target
+      } 
+      
+      else if (shooter.getVelocity() < TARGET) { //THRESHOLD <= Flywheel Speed < TARGET start feeding the balls quickly to gain shooting velocity
         shooter.setShooter(shoot); //Set flyhweel to 0.85 output
-      } else {//Flywheel >= 4500
+      } 
+      
+      else {//Flywheel >= 4500
         shooter.setShooter(shoot); //Sets flywheel to 0.9 output
-        feed.setGateWheel(gateWheelSpeedFeed); //Feeds cells toward the shooter
+        feed.setGateWheel(gateWheelFeedFast); //Feeds cells toward the shooter
         feed.setSpindex(spindexFeed);
       }
     }

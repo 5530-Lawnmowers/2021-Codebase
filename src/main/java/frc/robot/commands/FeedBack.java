@@ -7,14 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class runFly extends CommandBase {
-  private Shooter shooter;
-  private double shooterSet = .9;
-  /** Creates a new runFly. */
-  public runFly(Shooter shooter) {
-    addRequirements(shooter);
-    this.shooter = shooter;
-
+public class FeedBack extends CommandBase {
+  /** Creates a new StartSpin. */
+  private Feed feed;
+  private double spindexSet = -.5; 
+  private double gatewheelSet = -.4;
+  public FeedBack(Feed feed) {
+    
+    addRequirements(feed);
+    this.feed = feed;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,13 +26,15 @@ public class runFly extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooter(shooterSet);
+    feed.setSpindex(spindexSet);
+    feed.setGateWheel(gatewheelSet);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopShooter();
+    feed.stopSpindex();
+    feed.stopGateWheel();
   }
 
   // Returns true when the command should end.

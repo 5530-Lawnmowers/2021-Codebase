@@ -4,35 +4,38 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.CompressorStart;
 import edu.wpi.first.wpilibj.*;
 public class Pneumatic extends SubsystemBase {
   /** Creates a new Pnuematic. */
-  private final Compressor comp = new Compressor();
+  private final Compressor compressor = new Compressor();
   private final DoubleSolenoid LeftS = new DoubleSolenoid(1,3);
   private final DoubleSolenoid RightS = new DoubleSolenoid(0,2);
 
-  public Pneumatic() {}
+  public Pneumatic() {
+    setDefaultCommand(new CompressorStart(this));
+  }
 
   @Override
   public void periodic() {
-    comp.stop();
+    // compressor.stop();
     // This method will be called once per scheduler run
   }
-  public void extend(){
+  public void intakeExtend(){
     LeftS.set(DoubleSolenoid.Value.kForward);
     RightS.set(DoubleSolenoid.Value.kForward);
 
   }
-  public void retract(){
+  public void intakeRetract(){
     LeftS.set(DoubleSolenoid.Value.kReverse);
     RightS.set(DoubleSolenoid.Value.kReverse);
 
   }
 
-  public void stop(){
-    comp.stop();
+  public void compressorStop(){
+    compressor.stop();
   }
-  public void start(){
-    comp.start();
+  public void compressorStart(){
+    compressor.start();
   }
 }

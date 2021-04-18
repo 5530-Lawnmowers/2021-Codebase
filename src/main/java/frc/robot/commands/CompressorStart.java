@@ -3,32 +3,40 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class PneumaticExtend extends CommandBase {
-  /** Creates a new Extend. */
-  private Pneumatic pneumatic;
-  public PneumaticExtend(Pneumatic pneumatic) {
-    addRequirements(pneumatic);
-    this.pneumatic = pneumatic;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Pneumatic;
+
+public class CompressorStart extends CommandBase {
+  /** Creates a new StartCompressor. */
+  private final Pneumatic compressor;
+  public CompressorStart(Pneumatic compressor) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(compressor);
+    this.compressor = compressor;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    pneumatic.extend();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if(RobotContainer.XBController2.getPOV() != -1 ){
+        compressor.compressorStart();      
+      }
+      else{
+        compressor.compressorStop();
+  
+      }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pneumatic.retract();
+    compressor.compressorStop();
   }
 
   // Returns true when the command should end.

@@ -10,11 +10,11 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 
-public class Shooter extends SubsystemBase {
+public class Flywheel extends SubsystemBase {
   private CANSparkMax flywheel1 = new CANSparkMax(Constants.FLY_1, CANSparkMaxLowLevel.MotorType.kBrushless);
   private CANSparkMax flywheel2 = new CANSparkMax(Constants.FLY_2, CANSparkMaxLowLevel.MotorType.kBrushless);
   /** Creates a new Shooter. */
-  public Shooter() {
+  public Flywheel() {
     flywheel1.setIdleMode(IdleMode.kCoast);
     flywheel2.setIdleMode(IdleMode.kCoast);
 

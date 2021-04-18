@@ -5,26 +5,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climb;
 
-public class StartCompressor extends CommandBase {
-  /** Creates a new StartCompressor. */
-  public StartCompressor() {
+public class ClimbRelease extends CommandBase {
+  /** Creates a new Climb. */
+  private final Climb climb;
+  public ClimbRelease(Climb climb) {
+    addRequirements(climb);
+    this.climb = climb;
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    climb.getPIDController();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climb.stopClimb();
+  }
 
   // Returns true when the command should end.
   @Override

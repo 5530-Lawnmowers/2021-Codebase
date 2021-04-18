@@ -6,17 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.GenericHID;
-import frc.robot.RobotContainer;
 
+public class ShooterSpool extends CommandBase {
+  private Flywheel shooter;
+  private double shooterSet = .9;
+  /** Creates a new runFly. */
+  public ShooterSpool(Flywheel shooter) {
+    addRequirements(shooter);
+    this.shooter = shooter;
 
-public class HoodManual extends CommandBase {
-  /** Creates a new StartSpin. */
-  private Hood hood;
-  public HoodManual(Hood hood) {
-    
-    addRequirements(hood);
-    this.hood = hood;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,20 +24,14 @@ public class HoodManual extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {  
-    if(Math.abs(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft)) > .4){
-    hood.setHood(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft));
-    }
-    else{
-      hood.stopHood();
-
-    }
+  public void execute() {
+    shooter.setShooter(shooterSet);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hood.stopHood();
+    shooter.stopShooter();
   }
 
   // Returns true when the command should end.

@@ -44,12 +44,13 @@ public class RobotContainer {
   public static JoystickButton xb2back = new JoystickButton(XBController2, 7);
   public static JoystickButton xb2lstick = new JoystickButton(XBController2, 9);
   public static JoystickButton xb2rstick = new JoystickButton(XBController2, 10);
+
+
   private final Climb climb = new Climb();
   private final Pneumatic pneumatic = new Pneumatic();
-
   private final Drivetrain drivetrain = new Drivetrain();
   private final Intake intake = new Intake();
-  private final Shooter shooter = new Shooter();
+  private final Flywheel shooter = new Flywheel();
   private final Feed feed = new Feed();
   private final Turret turret = new Turret();
   private final Hood hood = new Hood();
@@ -67,15 +68,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-//    .toggleWhenPressed(new PneumaticExtend(pneumatic));
+    xb2a.whenHeld(new IntakeExtend(pneumatic));  
+    // xb2b.whenHeld(new SpindexJiggle);
     xb2x.toggleWhenPressed(new IntakeIn(intake));
-    //xb2a.whenHeld(new FeedUp(feed));
-    xb2y.whenHeld(new SpindexReverse(feed));
-    xb2start.whenHeld(new SmartShoot(shooter, feed));
-    xb2rb.whenHeld(new runFly(shooter));
-    xb2lb.whenHeld(new AlignAll(turret, hood));
-    xb2rstick.whenHeld(new ClimbPID(climb));
-    xb2b.whenHeld(new ClimbSetZero(climb));
+    xb2y.whenHeld(new SmartShoot(shooter, feed));
+    xb2back.whenHeld(new FeedBack(feed));
+    xb2start.whenHeld(new FeedUp(feed));
+    xb2rstick.whenHeld(new ClimbRelease(climb));
+    xb2lstick.whenHeld(new ClimbSetZero(climb));
+    xb2rb.whenHeld(new AlignAll(turret, hood));
+    xb2lb.whenHeld(new ShooterSpool(shooter));
   }
 
   /**
