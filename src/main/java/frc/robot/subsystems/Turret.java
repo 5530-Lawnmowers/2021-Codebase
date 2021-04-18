@@ -17,9 +17,9 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public double UpperMax = .307480 - .001367; // .001367 * 6.25 // end -.332168 * 6.25
+  public double upperLimit = .307480 - .001367; // .001367 * 6.25 // end -.332168 * 6.25
  
-  public double LowerMax = -.332168 - .001367;
+  public double lowerLimit = -.332168 - .001367;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);
@@ -34,8 +34,8 @@ public class Turret extends SubsystemBase {
     turret.set(0);
     encoder = turret.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192); //sets encoder to get data from the data port absolute encoder
     setDefaultCommand(new TurretManual(this));
-    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret LowerMax", 0.306113);
-    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret UpperMax", -0.333535);
+    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret LowerLimit", 0.306113);
+    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret UpperLimit", -0.333535);
   }
   /**Set turret speed */
   public void setTurret(double speed) {
@@ -85,18 +85,18 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Turret Heading", getHeading());
-    if( (getHeading() > UpperMax) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
+    if( (getHeading() > upperLimit) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
       turret.set(0);
     }
-    else if ( (getHeading() <  LowerMax) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
+    else if ( (getHeading() <  lowerLimit) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
       turret.set(0);
     }
     else{
       turret.set(inputPower);
     }
     
-    LowerMax = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret LowerMax");
-    UpperMax = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret UppgerMax");
+    lowerLimit = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret LowerMax");
+    upperLimit = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret UppgerMax");
     // This method will be called once per scheduler run
   }
 }
