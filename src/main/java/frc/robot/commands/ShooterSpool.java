@@ -10,6 +10,7 @@ import frc.robot.subsystems.*;
 public class ShooterSpool extends CommandBase {
   private Flywheel shooter;
   private double shooterSet = .9;
+  private double setPoint = 3250;
   /** Creates a new runFly. */
   public ShooterSpool(Flywheel shooter) {
     addRequirements(shooter);
@@ -25,7 +26,8 @@ public class ShooterSpool extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooter(shooterSet);
+    // shooter.setShooter(shooterSet);
+    shooter.shooterVelocityPID(setPoint);
   }
 
   // Called once the command ends or is interrupted.

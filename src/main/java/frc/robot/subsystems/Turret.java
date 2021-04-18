@@ -8,16 +8,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.*;
 import frc.robot.helpers.LimelightHelper;
+import frc.robot.helpers.ShuffleboardHelpers;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public final static double UpperMax = .307480 - .001367; // .001367 * 6.25 // end -.332168 * 6.25
+  public double UpperMax = .307480 - .001367; // .001367 * 6.25 // end -.332168 * 6.25
  
-  public final static double LowerMax = -.332168 - .001367;
+  public double LowerMax = -.332168 - .001367;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);
@@ -32,6 +34,8 @@ public class Turret extends SubsystemBase {
     turret.set(0);
     encoder = turret.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192); //sets encoder to get data from the data port absolute encoder
     setDefaultCommand(new TurretManual(this));
+    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret LowerMax", 0.306113);
+    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret UpperMax", -0.333535);
   }
   /**Set turret speed */
   public void setTurret(double speed) {
@@ -91,7 +95,8 @@ public class Turret extends SubsystemBase {
       turret.set(inputPower);
     }
     
-    
+    LowerMax = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret LowerMax");
+    UpperMax = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret UppgerMax");
     // This method will be called once per scheduler run
   }
 }

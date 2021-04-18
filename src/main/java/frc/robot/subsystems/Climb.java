@@ -26,11 +26,11 @@ public class Climb extends SubsystemBase {
   private final CANPIDController climbControllerR =climbR.getPIDController();
   private double armUp = 1.2;
   private boolean pressed =false;
-  private double kP = .5;
-  private double kI = 0;
-  private double kD = 0;
-  private double kFF = 0.00002;
-  private double kIz = 0;
+  private final double kP = .5;
+  private final double kI = 0;
+  private final double kD = 0;
+  private final double kFF = 0.00002;
+  private final double kIz = 0;
   
   public Climb() {
     climbL.setIdleMode(IdleMode.kBrake);
