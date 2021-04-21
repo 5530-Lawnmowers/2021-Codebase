@@ -11,12 +11,12 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.*;
 
 public class Climb extends SubsystemBase {
   private final CANSparkMax climbL = new CANSparkMax(Constants.CLIMB_L, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -24,8 +24,9 @@ public class Climb extends SubsystemBase {
   
   private final CANPIDController climbControllerL = climbL.getPIDController();
   private final CANPIDController climbControllerR =climbR.getPIDController();
-  private double armUp = 1.2;
+  
   private boolean pressed =false;
+  
   private final double kP = .5;
   private final double kI = 0;
   private final double kD = 0;
@@ -37,7 +38,6 @@ public class Climb extends SubsystemBase {
     climbR.setIdleMode(IdleMode.kBrake);
     climbL.set(0);
     climbR.set(0);
-    setDefaultCommand(new ClimbManual(this));
   }
   public void setClimb(double speed) {
     climbL.set(-speed);
@@ -46,14 +46,14 @@ public class Climb extends SubsystemBase {
   /**
    * Uses the SparkMAX onboard PID Loop and set's the refrence point using a simple position loop.
    */
-  public void getPIDController() {
+  public void getPIDController(double left, double right) {
     climbControllerL.setP(kP);
     climbControllerL.setI(kI);
     climbControllerL.setD(kD);
     climbControllerL.setFF(kFF);
     climbControllerL.setIZone(kIz);
     climbControllerL.setOutputRange(-.25, .25);
-    climbControllerL.setReference(-armUp, ControlType.kPosition);
+    climbControllerL.setReference(-left, ControlType.kPosition);
 
     climbControllerR.setP(.12);
     climbControllerR.setI(0);
@@ -61,14 +61,18 @@ public class Climb extends SubsystemBase {
     climbControllerR.setFF(kFF);
     climbControllerR.setIZone(kIz);
     climbControllerR.setOutputRange(-.25, .25);
-    climbControllerR.setReference(1.6, ControlType.kPosition);
+    climbControllerR.setReference(right, ControlType.kPosition);
 
   }
   /**
-   * Gets the encoder position from the NEO HAL sensor. NEEDS TO BE ZEROED 
+   * Gets the encoder position from the NEO HAL sensor. NEEDS TO BE ZEROED BEFORE CLIMBING
+   * 
    */
-  public double getPosition() {
-    return climbL.getEncoder().getPosition();
+  public double getLPosition() {
+    return -climbL.getEncoder().getPosition(); //Made encoder negative to positive to keep the motors consistant, with arm flipping up as positive
+  }
+  public double getRPosition() {
+    return climbR.getEncoder().getPosition();
   }
   /**
    * Sets the NEO HAL encoder to read 0.
@@ -84,12 +88,13 @@ public class Climb extends SubsystemBase {
   
   @Override
   public void periodic() {
-    if(RobotContainer.XBController2.getAButton() || pressed){
+    
+    if(RobotContainer.XBController2.getStickButton(Hand.kRight) || pressed){
       pressed=true;
       climbL.set(RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight));
       climbR.set(-RobotContainer.XBController2.getTriggerAxis(GenericHID.Hand.kRight));
     }
-    SmartDashboard.putNumber("ClimbL",getPosition());//sends data to the Dashboard. Read only.
+    SmartDashboard.putNumber("ClimbL",getLPosition());//sends data to the Dashboard. Read only.
     SmartDashboard.putNumber("ClimbR",climbR.getEncoder().getPosition());
 
     // This method will be called once per scheduler run

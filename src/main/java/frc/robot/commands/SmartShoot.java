@@ -6,7 +6,7 @@ public class SmartShoot extends CommandBase{
     
     private Flywheel shooter;
     private Feed feed;
-    private double accel = .99;
+    private double accel = 1;
     private double shoot = 0.85;
     private double SLOWSPEED = 1000;
     private double TARGET = 3250;
@@ -35,7 +35,7 @@ public class SmartShoot extends CommandBase{
       }
       
       else if (shooter.getVelocity() < THRESHOLD) { //at THRESHOLD Speed begin to move the spindex aswell and speed up the gatewheel. This is to reduce the chance of jamming while maximizing shoot speed.
-          shooter.setShooter(accel);//Sets Shooter voltage to .9
+          shooter.shooterVelocityPID(TARGET);//Sets Shooter set point to Target velocity
          
         if (feed.getBreakbeam()) { // If the breakbeam returns true(no ball)
           feed.setGateWheel(gateWheelFeed); //feeds the balls up the gatewheel
@@ -46,8 +46,8 @@ public class SmartShoot extends CommandBase{
         }
       } 
       
-      else if (shooter.getVelocity() < TARGET) { //THRESHOLD <= Flywheel Speed < TARGET start feeding the balls quickly to gain shooting velocity
-        shooter.setShooter(shoot); //Set flyhweel to 0.85 output
+      else if (shooter.getVelocity() < TARGET-15) { //THRESHOLD <= Flywheel Speed < TARGET start feeding the balls quickly to gain shooting velocity
+        shooter.shooterVelocityPID(TARGET); //Shoots balls at target-15rpm
       } 
       
       else {//Flywheel >= 4500

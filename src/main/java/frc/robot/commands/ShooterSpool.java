@@ -9,8 +9,7 @@ import frc.robot.subsystems.*;
 
 public class ShooterSpool extends CommandBase {
   private Flywheel shooter;
-  private double shooterSet = .9;
-  private double setPoint = 3250;
+  private double setPoint = 3250; // this is the target velocity used in executing shooterVelocityPID method
   /** Creates a new runFly. */
   public ShooterSpool(Flywheel shooter) {
     addRequirements(shooter);

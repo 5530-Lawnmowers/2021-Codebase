@@ -74,10 +74,9 @@ public class RobotContainer {
     xb2y.whenHeld(new SmartShoot(shooter, feed));
     xb2back.whenHeld(new FeedBack(feed));
     xb2start.whenHeld(new FeedUp(feed));
-    xb2rstick.whenHeld(new ClimbRelease(climb));
-    xb2lstick.whenHeld(new ClimbSetZero(climb));
-    xb2rb.whenHeld(new AlignAll(turret, hood));
-    xb2lb.whenHeld(new ShooterSpool(shooter));
+    xb2rstick.whenHeld(new ClimbAll(climb));
+    xb2lb.whenHeld(new AlignAll(turret, hood));
+    xb2rb.whenHeld(new ShooterSpool(shooter));
   }
 
   /**

@@ -16,22 +16,28 @@ public class Flywheel extends SubsystemBase {
   private CANSparkMax flywheel2 = new CANSparkMax(Constants.FLY_2, CANSparkMaxLowLevel.MotorType.kBrushless);
   private CANPIDController flywheel1PID = flywheel1.getPIDController();
   private CANPIDController flywheel2PID = flywheel2.getPIDController();
-  private double kP = 5E-5;
+  private double kP = 1E-3;
   private double kI = 0;
   private double kD = 0;
-  private double kFF = .0000156;
+  private double kFF = .00022;
   /** Creates a new Shooter. */
   public Flywheel() {
     flywheel1.setIdleMode(IdleMode.kCoast);
     flywheel2.setIdleMode(IdleMode.kCoast);
-    
+    flywheel1PID.setP(kP);
+    flywheel1PID.setI(kI);
+    flywheel1PID.setD(kD);
+    flywheel1PID.setFF(kFF);
+    flywheel2PID.setP(kP);
+    flywheel2PID.setI(kI);
+    flywheel2PID.setD(kD);
+    flywheel2PID.setFF(kFF);
     //Shuffleboard Quick PID Tuning 
     ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kP", 5E-5);
-    ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kI", 0);
-    ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kD", 0);
-    ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kFF", .0000156);
-    ShuffleboardHelpers.createSimpleWidget("Flywheel", "Flywheel Velocity", getVelocity());
-
+    // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kI", 0);
+    // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kD", 0);
+    // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "kFF", .0000156);
+    // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "Real kP", 5E-5);
   }
   public void setShooter(double speed){
     flywheel1.set(speed);
@@ -43,14 +49,6 @@ public class Flywheel extends SubsystemBase {
     flywheel2.set(0);
   }
   public void shooterVelocityPID(double setPoint) {
-    flywheel1PID.setP(kP);
-    flywheel1PID.setI(kI);
-    flywheel1PID.setD(kD);
-    flywheel1PID.setFF(kFF);
-    flywheel2PID.setP(kP);
-    flywheel2PID.setI(kI);
-    flywheel2PID.setD(kD);
-    flywheel2PID.setFF(kFF);
 
     flywheel1PID.setReference(setPoint, ControlType.kVelocity);
     flywheel2PID.setReference(-setPoint, ControlType.kVelocity);
@@ -61,13 +59,17 @@ public class Flywheel extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Velocity", getVelocity());
+    SmartDashboard.putNumber("Voltage", flywheel1.get());
+    SmartDashboard.putNumber("VelocityFlywheel2", flywheel1.getEncoder().getVelocity());
     //Useful Info for PID Loop
-    ShuffleboardHelpers.setWidgetValue("Flywheel", "Flywheel Voltage", flywheel1.get());
-    kP = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kP");
-    kI = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kI");
-    kD = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kD");
-    kFF = (double) ShuffleboardHelpers.getWidgetValue("Flywheel", "kFF");
-    ShuffleboardHelpers.setWidgetValue("Flywheel", "Flywheel Velocity", getVelocity());
+    // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "Flywheel Voltage", flywheel1.get());
+    kP = (double) ShuffleboardHelpers.getWidgetValue("FlyWheel", "kP");
+    //ShuffleboardHelpers.setWidgetValue("FlyWheel", "Rea; kP", kP);
+    // kI = ShuffleboardHelpers.getWidgetValue("FlyWheel", "kI");
+    // kD = ShuffleboardHelpers.getWidgetValue("FlyWheel", "kD");
+    // kFF = ShuffleboardHelpers.getWidgetValue("FlyWheel", "kFF");
+    // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "Flywheel Velocity", getVelocity());
     // This method will be called once per scheduler run
   }
 }

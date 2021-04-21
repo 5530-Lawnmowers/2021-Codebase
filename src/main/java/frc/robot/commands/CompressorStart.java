@@ -24,7 +24,7 @@ public class CompressorStart extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.XBController2.getPOV() != -1 ){
+    if(RobotContainer.XBController2.getPOV() > -1 ){
         compressor.compressorStart();      
       }
       else{

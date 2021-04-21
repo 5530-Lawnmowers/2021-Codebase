@@ -16,7 +16,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 public class Hood extends SubsystemBase {
 
   private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
-  private final CANEncoder hoodEncoder = hood.getEncoder();
   private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
  
   private int lowerLimit;
@@ -74,9 +73,9 @@ public class Hood extends SubsystemBase {
     return offset + 0.3 - 4-2; //The + 0.3 is a just constant added to the offset equation
   }
 
-  public double getAngle() {
-    return hoodEncoder.getPosition();
-  }
+  // public double getAngle() {
+    // return hoodEncoder.getPosition();
+  // }
   
 
 

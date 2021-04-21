@@ -9,6 +9,8 @@ import frc.robot.subsystems.Climb;
 
 public class ClimbRelease extends CommandBase {
   /** Creates a new Climb. */
+  private final double setPointL = 1.2; // Positive is arm up
+  private final double setPointR = 1.6; // Positive is arm up
   private final Climb climb;
   public ClimbRelease(Climb climb) {
     addRequirements(climb);
@@ -23,7 +25,7 @@ public class ClimbRelease extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climb.getPIDController();
+    climb.getPIDController(setPointL, setPointR);
   }
 
   // Called once the command ends or is interrupted.
@@ -35,6 +37,9 @@ public class ClimbRelease extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if ( (climb.getLPosition() > setPointL) && (climb.getRPosition() > setPointR)) {
+      return true;
+    }
     return false;
   }
 }

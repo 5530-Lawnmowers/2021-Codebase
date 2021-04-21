@@ -11,19 +11,20 @@ import frc.robot.helpers.LimelightHelper;
 import frc.robot.helpers.ShuffleboardHelpers;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public double upperLimit = .307480 - .001367; // .001367 * 6.25 // end -.332168 * 6.25
+  public double upperLimit = .35; // .001367 * 6.25 // end -.332168 * 6.25
  
   public double lowerLimit = -.332168 - .001367;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);
-  public CANEncoder encoder;
+  private final DutyCycleEncoder encoder = new DutyCycleEncoder(Constants.TURRET_ENCODER);
   
 
   /** Creates a new Turret. */
@@ -31,11 +32,11 @@ public class Turret extends SubsystemBase {
 
     turret.setIdleMode(IdleMode.kBrake);
     turret.setSmartCurrentLimit(40);
-    turret.set(0);
-    encoder = turret.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192); //sets encoder to get data from the data port absolute encoder
+    turret.set(0); 
+    //encoder.reset();
     setDefaultCommand(new TurretManual(this));
-    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret LowerLimit", 0.306113);
-    ShuffleboardHelpers.createSimpleWidget("Turret", "Turret UpperLimit", -0.333535);
+    //ShuffleboardHelpers.createSimpleWidget("Turret", "Turret LowerLimit", 0.306113);
+    //ShuffleboardHelpers.createSimpleWidget("Turret", "Turret UpperLimit", -0.333535);
   }
   /**Set turret speed */
   public void setTurret(double speed) {
@@ -78,7 +79,7 @@ public class Turret extends SubsystemBase {
    * @return Heading in degrees
    */
   public double getHeading() {
-    double position = (encoder.getPosition() / 6.25); // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn.
+    double position = (encoder.get() / 6.25); // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn.
     return position;
   }
 
@@ -95,8 +96,8 @@ public class Turret extends SubsystemBase {
       turret.set(inputPower);
     }
     
-    lowerLimit = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret LowerMax");
-    upperLimit = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret UppgerMax");
+    //lowerLimit = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret LowerMax");
+    //upperLimit = (double) ShuffleboardHelpers.getWidgetValue("Turret", "Turret UppgerMax");
     // This method will be called once per scheduler run
   }
 }

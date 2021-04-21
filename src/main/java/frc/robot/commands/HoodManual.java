@@ -27,7 +27,8 @@ public class HoodManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
-    if(Math.abs(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft)) > .4){
+    System.out.println(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft));
+    if(Math.abs(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft)) > 0){
     hood.setHood(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft));
     }
     else{

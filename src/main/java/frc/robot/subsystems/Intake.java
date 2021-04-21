@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 public class Intake extends SubsystemBase {
   
   //Intake has One NEO550
-  private CANSparkMax intake = new CANSparkMax(Constants.INTAKE, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANSparkMax intake = new CANSparkMax(Constants.INTAKE, CANSparkMaxLowLevel.MotorType.kBrushed);
   
   /** Creates a new Intake. */
   public Intake() {
