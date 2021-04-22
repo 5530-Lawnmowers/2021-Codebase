@@ -18,9 +18,9 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public double upperLimit = .35; // .001367 * 6.25 // end -.332168 * 6.25
+  public double upperLimit = 1.38; // .001367 * 6.25 // end -.332168 * 6.25
  
-  public double lowerLimit = -.332168 - .001367;
+  public double lowerLimit = -2.78;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);
@@ -33,7 +33,7 @@ public class Turret extends SubsystemBase {
     turret.setIdleMode(IdleMode.kBrake);
     turret.setSmartCurrentLimit(40);
     turret.set(0); 
-    //encoder.reset();
+    
     setDefaultCommand(new TurretManual(this));
     //ShuffleboardHelpers.createSimpleWidget("Turret", "Turret LowerLimit", 0.306113);
     //ShuffleboardHelpers.createSimpleWidget("Turret", "Turret UpperLimit", -0.333535);
@@ -45,6 +45,9 @@ public class Turret extends SubsystemBase {
   /**Stops Turret */
   public void stopTurret() {
     turret.set(0);
+  }
+  public void setZero() {
+    encoder.reset();
   }
   /** Changes the turret heading to get the limelightXOffset to 0.
    * @return Turret speed from PID Loop 
@@ -79,7 +82,7 @@ public class Turret extends SubsystemBase {
    * @return Heading in degrees
    */
   public double getHeading() {
-    double position = (encoder.get() / 6.25); // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn.
+    double position = (encoder.get()); // 150T to 24T pulley thus we divide by 6.25 ratio to convert 6.25 turns into 1 turn.
     return position;
   }
 

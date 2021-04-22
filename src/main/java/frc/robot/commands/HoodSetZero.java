@@ -5,42 +5,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.GenericHID;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Hood;
 
-
-public class HoodManual extends CommandBase {
-  /** Creates a new StartSpin. */
-  private Hood hood;
-  public HoodManual(Hood hood) {
-    
+public class HoodSetZero extends CommandBase {
+  /** Creates a new Climb. */
+  private final Hood hood;
+  public HoodSetZero(Hood hood) {
     addRequirements(hood);
     this.hood = hood;
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {  
-    System.out.println(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft));
-    if(Math.abs(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft)) > 0.2){
-    hood.setHood(RobotContainer.XBController2.getY(GenericHID.Hand.kLeft));
-    }
-    else{
-      hood.stopHood();
-
-    }
+  public void execute() {
+    hood.setZero();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hood.stopHood();
   }
 
   // Returns true when the command should end.

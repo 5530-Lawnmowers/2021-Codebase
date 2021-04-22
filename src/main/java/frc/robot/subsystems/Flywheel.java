@@ -41,7 +41,7 @@ public class Flywheel extends SubsystemBase {
   }
   public void setShooter(double speed){
     flywheel1.set(speed);
-    flywheel2.set(-speed);
+    //flywheel2.set(-speed);
 
   }
   public void stopShooter(){
@@ -61,7 +61,7 @@ public class Flywheel extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Velocity", getVelocity());
     SmartDashboard.putNumber("Voltage", flywheel1.get());
-    SmartDashboard.putNumber("VelocityFlywheel2", flywheel1.getEncoder().getVelocity());
+    SmartDashboard.putNumber("VelocityFlywheel2", flywheel2.getEncoder().getVelocity());
     //Useful Info for PID Loop
     // ShuffleboardHelpers.createSimpleWidget("FlyWheel", "Flywheel Voltage", flywheel1.get());
     kP = (double) ShuffleboardHelpers.getWidgetValue("FlyWheel", "kP");

@@ -40,7 +40,7 @@ public final class Constants {
 
     //Absolute Encoder(Duty Cycle Encoder)
     public static final int TURRET_ENCODER = 0;
-
+    public static final int HOOD_ENCODER = 1;
     
 
 }

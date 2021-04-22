@@ -7,9 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.LimelightHelper;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
-import frc.robot.helpers.rumbleHelp;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -17,9 +18,10 @@ public class Hood extends SubsystemBase {
 
   private final CANSparkMax hood = new CANSparkMax(Constants.HOOD, CANSparkMaxLowLevel.MotorType.kBrushed);
   private final PIDController hoodPID = new PIDController(.4, 0, 0, 10);
- 
-  private int lowerLimit;
-  public double upperLimit;
+  private final DutyCycleEncoder encoder = new DutyCycleEncoder(Constants.HOOD_ENCODER);
+  private double lowerLimit = -.05;
+  public double upperLimit = 1.1;
+  private double inputPower = 0;
 
   /** Creates a new Hood. */
   public Hood() {
@@ -36,7 +38,7 @@ public class Hood extends SubsystemBase {
     // if(encoder.getPosition() > upperLimit && speed > 0){
     //   hood.set(0);
     // }
-    hood.set(speed);
+    inputPower = speed;
   }
   /**
    * Stops hood motor
@@ -76,14 +78,25 @@ public class Hood extends SubsystemBase {
   // public double getAngle() {
     // return hoodEncoder.getPosition();
   // }
-  
+  public void setZero() {
+    encoder.reset();
+  }
 
 
   
   @Override
   public void periodic() {
-   
+    SmartDashboard.putNumber("Hood Position",encoder.get());
     // System.out.println(encoder.getPosition());
     // This method will be called once per scheduler run
+    if( (encoder.get() > upperLimit) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
+      hood.set(0);
+    }
+    else if ( (encoder.get() <  lowerLimit) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
+      hood.set(0);
+    }
+    else{
+      hood.set(inputPower);
+    }
   }
 }
