@@ -41,7 +41,7 @@ public class Flywheel extends SubsystemBase {
   }
   public void setShooter(double speed){
     flywheel1.set(speed);
-    //flywheel2.set(-speed);
+    flywheel2.set(-speed);
 
   }
   public void stopShooter(){
