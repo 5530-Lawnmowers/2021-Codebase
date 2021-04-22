@@ -18,9 +18,9 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Turret extends SubsystemBase {
-  public double upperLimit = 1.38; // .001367 * 6.25 // end -.332168 * 6.25
- 
-  public double lowerLimit = -2.78;
+  public double upperLimit = 2.1; // .001367 * 6.25 // end -.332168 * 6.25
+  //zero =0.5
+  public double lowerLimit = -1.5;
   public double inputPower = 0;
   private CANSparkMax turret = new CANSparkMax(Constants.TURRET, CANSparkMaxLowLevel.MotorType.kBrushless); 
   private final PIDController turretPID = new PIDController(.05, 0, .0007);

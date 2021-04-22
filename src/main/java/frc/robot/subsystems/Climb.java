@@ -27,10 +27,10 @@ public class Climb extends SubsystemBase {
   
   private boolean pressed =false;
   
-  private final double kP = .5;
+  private final double kP = .8;
   private final double kI = 0;
   private final double kD = 0;
-  private final double kFF = 0.00002;
+  private final double kFF = 0.00008;
   private final double kIz = 0;
   
   public Climb() {
@@ -55,12 +55,12 @@ public class Climb extends SubsystemBase {
     climbControllerL.setOutputRange(-.25, .25);
     climbControllerL.setReference(-left, ControlType.kPosition);
 
-    climbControllerR.setP(.12);
+    climbControllerR.setP(.41);
     climbControllerR.setI(0);
     climbControllerR.setD(kD);
     climbControllerR.setFF(kFF);
     climbControllerR.setIZone(kIz);
-    climbControllerR.setOutputRange(-.25, .25);
+    climbControllerR.setOutputRange(-.75, .75);
     climbControllerR.setReference(right, ControlType.kPosition);
 
   }

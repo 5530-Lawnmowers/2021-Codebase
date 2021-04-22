@@ -69,7 +69,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     xb2a.toggleWhenPressed(new IntakeExtend(pneumatic));  
-    xb2b.whenHeld(new SpindexJiggle(feed).perpetually());
+    xb2b.whenHeld(new SpindexJiggle(feed));
     xb2x.toggleWhenPressed(new IntakeIn(intake));
     xb2y.whenHeld(new SmartShoot(shooter, feed));
     xb2back.whenHeld(new FeedBack(feed));

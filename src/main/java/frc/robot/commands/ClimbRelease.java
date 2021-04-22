@@ -37,7 +37,7 @@ public class ClimbRelease extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ( (climb.getLPosition() > setPointL) && (climb.getRPosition() > setPointR)) {
+    if ( (climb.getLPosition() > setPointL-.2) && (climb.getRPosition() > setPointR-.2)) {
       return true;
     }
     return false;

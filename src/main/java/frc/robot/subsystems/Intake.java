@@ -19,6 +19,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
     intake.setIdleMode(IdleMode.kBrake); //set how the motor behaves Idle
     intake.setSmartCurrentLimit(30); //Prevents Explosion
+    intake.set(0);
   }
   /**Sets the speed of the intake Motor */
   public void setIntake (double speed) {

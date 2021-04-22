@@ -19,11 +19,11 @@ public class SpindexJiggle extends SequentialCommandGroup {
     addCommands(
       race(
         new SpindexForward(feed),
-        new WaitCommand(.2)
+        new WaitCommand(.5)
       ),
       race(
         new SpindexReverse(feed),
-        new WaitCommand(.2)  
+        new WaitCommand(.3)  
       )
     );
 
