@@ -39,6 +39,7 @@ public class Hood extends SubsystemBase {
     //   hood.set(0);
     // }
     inputPower = speed;
+    hood.set(inputPower);
   }
   /**
    * Stops hood motor
@@ -89,14 +90,14 @@ public class Hood extends SubsystemBase {
     SmartDashboard.putNumber("Hood Position",encoder.get());
     // System.out.println(encoder.getPosition());
     // This method will be called once per scheduler run
-    if( (encoder.get() > upperLimit) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
-      hood.set(0);
-    }
-    else if ( (encoder.get() <  lowerLimit) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
-      hood.set(0);
-    }
-    else{
-      hood.set(inputPower);
-    }
+    // if( (encoder.get() > upperLimit) &&  (inputPower > 0)){ //If encoder reads value above this value, turret stops
+    //   hood.set(0);
+    // }
+    // else if ( (encoder.get() <  lowerLimit) && (inputPower < 0)){ //If encoder reads value below this value, turret stops
+    //   hood.set(0);
+    // }
+    // else{
+    //   hood.set(inputPower);
+    // }
   }
 }
