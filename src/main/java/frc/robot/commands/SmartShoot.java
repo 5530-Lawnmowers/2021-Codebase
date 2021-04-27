@@ -46,7 +46,7 @@ public class SmartShoot extends CommandBase{
         }
       } 
       
-      else if (shooter.getVelocity() < TARGET-15) { //THRESHOLD <= Flywheel Speed < TARGET start feeding the balls quickly to gain shooting velocity
+      else if (shooter.getVelocity() < TARGET-25) { //THRESHOLD <= Flywheel Speed < TARGET start feeding the balls quickly to gain shooting velocity
         shooter.shooterVelocityPID(TARGET); //Shoots balls at target-15rpm
       } 
       

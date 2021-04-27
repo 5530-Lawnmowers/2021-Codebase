@@ -10,8 +10,8 @@ import frc.robot.subsystems.*;
 public class FeedBack extends CommandBase {
   /** Creates a new StartSpin. */
   private Feed feed;
-  private double spindexSet = -.5; 
-  private double gatewheelSet = -.4;
+  private double spindexSet = -.75; 
+  private double gatewheelSet = -.3;
   public FeedBack(Feed feed) {
     
     addRequirements(feed);
