@@ -6,6 +6,8 @@ public class SmartShoot extends CommandBase{
     
     private Flywheel shooter;
     private Feed feed;
+    private boolean state = false;
+    private double count = 0;
     private double accel = 1;
     private double shoot = 0.85;
     private double SLOWSPEED = 1000;
@@ -39,19 +41,28 @@ public class SmartShoot extends CommandBase{
          
         if (feed.getBreakbeam()) { // If the breakbeam returns true(no ball)
           feed.setGateWheel(gateWheelFeed); //feeds the balls up the gatewheel
+
           feed.setSpindex(spindexFeed); // feeds the balls toward the gatewheel
         } else { //If the breakbeam returns false
           feed.stopGateWheel(); //stops feeding the balls
           feed.stopSpindex();
+
         }
       } 
       
       else if (shooter.getVelocity() < TARGET-25) { //THRESHOLD <= Flywheel Speed < TARGET start feeding the balls quickly to gain shooting velocity
         shooter.shooterVelocityPID(TARGET); //Shoots balls at target-15rpm
+        if(state){
+            count++;
+            state = false;
+
+        }
       } 
       
       else {//Flywheel >= 4500
-        shooter.setShooter(shoot); //Sets flywheel to 0.9 output
+        state = true;
+
+          shooter.setShooter(shoot); //Sets flywheel to 0.9 output
         feed.setGateWheel(gateWheelFeedFast); //Feeds cells toward the shooter
         feed.setSpindex(spindexFeed);
       }
@@ -61,4 +72,13 @@ public class SmartShoot extends CommandBase{
         feed.stopGateWheel();
         feed.stopSpindex();
     } 
+    // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+if(count >= 2) {
+    return true;
+}
+else
+    return false;
+  }
 }

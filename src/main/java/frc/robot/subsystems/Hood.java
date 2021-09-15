@@ -55,7 +55,7 @@ public class Hood extends SubsystemBase {
     double limelightArea = LimelightHelper.getTurretRawA(); // gets the raw curret value of limelight target Area.
     double limelightYOffset = LimelightHelper.getTurretRawY(); // gets the raw current value of limelight Y-axis offset to target. Measurement parameter for PID loop.
     double shootingYOffset = getShootingYOffset(limelightArea); //sets the target Y-axis offset for the given target area. Target point for the PID loop
-    System.out.println(shootingYOffset);
+    //System.out.println(shootingYOffset);
     return hoodPID.calculate(limelightYOffset, shootingYOffset); //returns the output voltage percentage for motor
   }
   

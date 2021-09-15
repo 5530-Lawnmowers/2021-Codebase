@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -74,10 +76,15 @@ public class RobotContainer {
     xb2y.whenHeld(new SmartShoot(shooter, feed));
     xb2back.whenHeld(new FeedBack(feed));
     xb2start.whenHeld(new FeedUp(feed));
-    xb2rstick.toggleWhenPressed(new ClimbAll(climb));
+    xb1a.toggleWhenPressed(new SequentialCommandGroup(
+            new ParallelRaceGroup(new AlignAll(turret, hood), new SmartShoot(shooter, feed))
+            , new ParallelRaceGroup(new MP(drivetrain), new IntakeIn(intake), new SpindexForward(feed)),
+            new ParallelRaceGroup(new AlignAll(turret, hood), new SmartShoot(shooter, feed))));
+            xb2rstick.toggleWhenPressed(new ClimbAll(climb));
     //xb2lstick.whenHeld(new HoodSetZero(hood));
     xb2lb.whenHeld(new AlignAll(turret, hood));
     xb2rb.whenHeld(new ShooterSpool(shooter));
+
   }
 
   /**

@@ -4,38 +4,45 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
-public class ProfileMotionTest extends CommandBase {
-  /** Creates a new ProfileMotionTest. */
+public class MP extends CommandBase {
   private Drivetrain drivetrain;
-
-  public ProfileMotionTest(Drivetrain drivetrain) {
-    addRequirements(drivetrain);
+  /** Creates a new MP. */
+  public MP(Drivetrain drivetrain) {
     this.drivetrain = drivetrain;
+    addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    BufferedTrajectoryPointStream points = new BufferedTrajectoryPointStream();
-    points.Write()
+    drivetrain.reset();
+    drivetrain.startMotionProfile();
+    drivetrain.control();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    drivetrain.control();
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    drivetrain.stop();
+
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return drivetrain.isDone();
   }
 }
